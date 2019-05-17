@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="whiteButtonTextColor">#FD2323</color>
+    <color name="whiteButtonShadowColor">#FFC7C7</color>
+    <color name="redButtonTextColor">#FFFFFF</color>
+    <color name="redButtonShadowColor">#5772A8</color>
+    <color name="bgcolor">#F2F2F2</color>
+    <color name="black">#000000</color>
+    <color name="darkGray">#808080</color>
+</resources>

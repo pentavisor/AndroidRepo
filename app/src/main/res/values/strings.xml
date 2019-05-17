@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Smart List</string>
+    <string name="title_activity_user_list">UserLIstActivity</string>
+    //--login_activity
+    <string name="wrong_login_or_pass">Пароль или логин введен не правильно, введите корректный пароль или сбросте старый и после сброса введите новый логин и пароль затем войдите снова</string>
+    <string name="reset_was_done">Сброс прошел успешно. Запись с логином и паролем не найдена, введите логин и пароль, где логин это российский номер сотового телефона, а пароль должен содержать 8 или больше символов а так же иметь одну или больше прописную и заглавную букву.</string>
+    <string name="entry_was_not_found">Запись с логином и паролем не найдена, введите логин и пароль, где логин это российский номер сотового телефона, а пароль должен содержать 8 или больше символов а так же иметь одну или больше прописную и заглавную букву.</string>
+    <string name="entry_was_found">Запись с логином и паролем найдена. Введите логин и пароль хранящиеся в базе для входа или сбросте его и введите новый.</string>
+    <string name="login">Введите логин</string>
+    <string name="pass">Введите пароль</string>
+    <string name="login_text_input">Логин</string>
+    <string name="pass_text_input">Пароль</string>
+    <string name="enter">Авторизоваться</string>
+    <string name="reset">Сбросить пароль</string>
+    <string name="asdsad">asdsad</string>
+    <string name="system_message">SystemMessage</string>
+    <string name="wron_login">Не правильный логин!</string>
+    <string name="wron_pass">Не правильный пароль!</string>
+    <string name="userImageFolder">userimagefolder</string>
+    <string-array name="sex_choice">
+        <item>Выберите пол</item>
+        <item>Мужской</item>
+        <item>Женский</item>
+    </string-array>
+</resources>
