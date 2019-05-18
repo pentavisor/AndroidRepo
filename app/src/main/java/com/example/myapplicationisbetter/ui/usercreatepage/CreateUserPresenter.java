@@ -21,6 +21,7 @@ import com.example.myapplicationisbetter.R;
 import com.example.myapplicationisbetter.data.models.LoginAndPassModel;
 import com.example.myapplicationisbetter.data.models.UserDataModel;
 import com.example.myapplicationisbetter.data.models.UserProperties;
+import com.example.myapplicationisbetter.ui.MyHelper;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -103,23 +104,10 @@ public class CreateUserPresenter extends MvpPresenter<CreateUserView> {
                                             jsonReaderForName.beginObject();
                                             while (jsonReaderForName.hasNext()) {
                                                 String key3 = jsonReaderForName.nextName();
-                                                if (key3.equals("thumbnail")) {
-                                                    String urlImage = jsonReaderForName.nextString();
+                                                if (key3.equals("large")) {
+                                                    userDataModel.imageName = jsonReaderForName.nextString();
+                                                    sendNewUserInDataBase(userDataModel,userProperties);
 
-                                                    Handler mainHandler = new Handler(context.getMainLooper());
-
-                                                    Runnable myRunnable = new Runnable() {
-                                                        @Override
-                                                        public void run() {
-                                                            Picasso.get().load(urlImage).into(
-                                                                    picassoImageTarget(context,
-                                                                            "user_image_"+System.currentTimeMillis(),
-                                                                            userDataModel,
-                                                                            userProperties)
-                                                            );
-                                                        } // This is your code
-                                                    };
-                                                    mainHandler.post(myRunnable);
                                                 }else {
                                                     jsonReaderForName.nextString();
                                                 }
@@ -147,6 +135,10 @@ public class CreateUserPresenter extends MvpPresenter<CreateUserView> {
 
     public void saveDateInDateBase(UserDataModel userDataModel, UserProperties userProperties, Context context) {
         //get user name
+        if(!MyHelper.isNetworkConnected()){
+            getViewState().setSystemText("Включите доступ к интернету пожалуйста");
+            return;
+        }
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
@@ -233,47 +225,7 @@ public class CreateUserPresenter extends MvpPresenter<CreateUserView> {
         getViewState().goToUserList();
     }
 
-    private Target picassoImageTarget(Context context,final String imageName,UserDataModel userDataModel,UserProperties userProperties) {
-        userDataModel.imageName = imageName;
-        sendNewUserInDataBase(userDataModel,userProperties);
-        String imageDir = App.getInstance().getResources().getString(R.string.userImageFolder);
-        ContextWrapper cw = new ContextWrapper(context);
-        final File directory = cw.getDir(imageDir, Context.MODE_PRIVATE); // path to /data/data/yourapp/app_imageDir
-        return new Target() {
-            @Override
-            public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        final File myImageFile = new File(directory, imageName+".png"); // Create image file
-                        FileOutputStream fos = null;
-                        try {
-                            fos = new FileOutputStream(myImageFile);
-                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } finally {
-                            try {
-                                fos.close();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        Log.i("image", "image saved to >>>" + myImageFile.getAbsolutePath());
 
-                    }
-                }).start();
-            }
-
-            @Override
-            public void onBitmapFailed(Exception e,Drawable errorDrawable) {
-            }
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
-                if (placeHolderDrawable != null) {}
-            }
-        };
-    }
 
 
 

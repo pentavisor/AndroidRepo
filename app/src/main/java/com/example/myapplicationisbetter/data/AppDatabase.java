@@ -12,7 +12,7 @@ import com.example.myapplicationisbetter.data.models.LoginAndPassModel;
 import com.example.myapplicationisbetter.data.models.UserDataModel;
 import com.example.myapplicationisbetter.data.models.UserProperties;
 
-@Database(entities = {LoginAndPassModel.class, UserDataModel.class, UserProperties.class}, version = 9)
+@Database(entities = {LoginAndPassModel.class, UserDataModel.class, UserProperties.class}, version = 11)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract LoginAndPassDao loginAndPassDao();
     public abstract UserDao userDao();

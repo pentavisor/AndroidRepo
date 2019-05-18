@@ -18,6 +18,8 @@ import com.example.myapplicationisbetter.data.models.UserProperties;
 import com.example.myapplicationisbetter.ui.ItemClickSupport;
 import com.example.myapplicationisbetter.ui.usercreatepage.CreateUserActivity;
 import com.example.myapplicationisbetter.ui.userpage.fragments.UserInformFragment;
+import com.squareup.picasso.OkHttp3Downloader;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,13 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_with_users);
+
+        Picasso.Builder builder = new Picasso.Builder(this);
+        builder.downloader(new OkHttp3Downloader(this,Integer.MAX_VALUE));
+        Picasso built = builder.build();
+        built.setIndicatorsEnabled(true);
+        built.setLoggingEnabled(true);
+        Picasso.setSingletonInstance(built);
 
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView = (RecyclerView) findViewById(R.id.list);
