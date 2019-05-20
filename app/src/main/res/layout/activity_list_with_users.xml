@@ -96,12 +96,206 @@
         android:layout_height="match_parent"
         android:layout_marginTop="160dp">
 
-        <fragment
-            android:id="@+id/listFragment"
-            android:name="com.example.myapplicationisbetter.ui.userpage.fragments.UserInformFragment"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp" />
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/newFutures"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textInformName"
+                        android:layout_width="118dp"
+                        android:layout_height="25dp"
+                        android:paddingStart="5dp"
+                        android:text="Имя"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/whiteButtonShadowColor"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/PhotoImageView"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/firstname"
+                        android:layout_width="180dp"
+                        android:layout_height="25dp"
+                        android:paddingStart="5dp"
+                        android:text="firstname"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/PhotoImageView"
+                        app:layout_constraintTop_toBottomOf="@+id/textInformName" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="115dp"
+                        android:layout_height="25dp"
+                        android:paddingStart="5dp"
+                        android:text="Фамилия"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/whiteButtonShadowColor"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/PhotoImageView"
+                        app:layout_constraintTop_toBottomOf="@+id/firstname" />
+
+                    <TextView
+                        android:id="@+id/lastname"
+                        android:layout_width="180dp"
+                        android:layout_height="25dp"
+                        android:paddingStart="5dp"
+                        android:text="lastname"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/PhotoImageView"
+                        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+                    <TextView
+                        android:id="@+id/sportText"
+                        android:layout_width="200dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="sportText"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+                    <TextView
+                        android:id="@+id/flowerText"
+                        android:layout_width="200dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="flowerText"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/sportText" />
+
+                    <TextView
+                        android:id="@+id/mushroomsText"
+                        android:layout_width="200dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="mashroomsText"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/flowerText" />
+
+                    <TextView
+                        android:id="@+id/crazyText"
+                        android:layout_width="200dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="crazyText"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/mushroomsText"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/sex"
+                        android:layout_width="202dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="28dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="sex"
+                        android:textAlignment="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/PhotoImageView" />
+
+
+                    <ImageView
+                        android:id="@+id/PhotoImageView"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/mustache" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="150dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="Особенности"
+                        android:textAlignment="center"
+                        android:textColor="@color/whiteButtonShadowColor"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+                    <View
+                        android:id="@+id/view"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="24dp"
+                        android:background="@android:color/darker_gray"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/sex" />
+
+                    <com.example.myapplicationisbetter.ui.userpage.fragments.CustomSpinner
+                        android:id="@+id/spinnerCa"
+                        android:layout_width="152dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/image_divider"
+                        android:overlapAnchor="false"
+                        android:spinnerMode="dropdown"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.964"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.004">
+
+                    </com.example.myapplicationisbetter.ui.userpage.fragments.CustomSpinner>
+
+                </android.support.constraint.ConstraintLayout>
+
+                <fragment
+                    android:id="@+id/listFragment"
+                    android:name="com.example.myapplicationisbetter.ui.userpage.fragments.UserInformFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="536dp"
+                    android:layout_margin="10dp" />
+            </LinearLayout>
+        </ScrollView>
 
     </android.support.constraint.ConstraintLayout>
 

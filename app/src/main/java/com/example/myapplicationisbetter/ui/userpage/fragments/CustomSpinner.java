@@ -198,6 +198,16 @@ public class CustomSpinner extends AppCompatSpinner {
             }else {
                 viewHolder1 = (ViewHolderMain)convertView.getTag();
             }
+
+            if(position == 0){
+                //viewHolder1.setVisibility(View.INVISIBLE);
+                //viewHolder1.viewMain.getLayoutParams().height = 1;
+                viewHolder1.strTxt.setHeight(0);
+                viewHolder1.viewMain.setVisibility(View.INVISIBLE);
+
+            }else{
+                viewHolder1.strTxt.setHeight(140);
+            }
             viewHolder1.strTxt.setText(strAtr[position].toString());
             return convertView;
         }

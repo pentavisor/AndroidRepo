@@ -5,6 +5,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.io.Serializable;
+
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "user_properties",
@@ -13,7 +15,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
                 childColumns = "prop_id",
                 onDelete = CASCADE,
                 onUpdate = CASCADE))
-public class UserProperties {
+public class UserProperties implements Serializable {
     @PrimaryKey()
     @ColumnInfo(name = "prop_id")
     public int id;

@@ -65,60 +65,60 @@
                 android:orientation="vertical"
                 android:padding="10dp">
 
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Фото и имя создаются автоматически"
-                    android:textAlignment="center" />
+                <!--<TextView-->
+                    <!--android:id="@+id/textView"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Фото и имя создаются автоматически"-->
+                    <!--android:textAlignment="center" />-->
 
-                <android.support.constraint.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/circle_form_angle"
-                    android:paddingLeft="0dp">
+                <!--<android.support.constraint.ConstraintLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:background="@drawable/circle_form_angle"-->
+                    <!--android:paddingLeft="0dp">-->
 
-                    <TextView
-                        android:id="@+id/firstname"
-                        android:layout_width="97dp"
-                        android:layout_height="27dp"
-                        android:layout_marginTop="48dp"
-                        android:layout_marginEnd="32dp"
-                        android:background="@drawable/back"
-                        android:paddingStart="7dp"
-                        android:text="Имя "
-                        android:textAlignment="textStart"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/firstname"-->
+                        <!--android:layout_width="97dp"-->
+                        <!--android:layout_height="27dp"-->
+                        <!--android:layout_marginTop="48dp"-->
+                        <!--android:layout_marginEnd="32dp"-->
+                        <!--android:background="@drawable/back"-->
+                        <!--android:paddingStart="7dp"-->
+                        <!--android:text="Имя "-->
+                        <!--android:textAlignment="textStart"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--android:textSize="18sp"-->
+                        <!--app:layout_constraintEnd_toEndOf="parent"-->
+                        <!--app:layout_constraintTop_toTopOf="parent" />-->
 
-                    <ImageView
-                        android:id="@+id/createPhotoImage"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginTop="16dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/plus" />
+                    <!--<ImageView-->
+                        <!--android:id="@+id/createPhotoImage"-->
+                        <!--android:layout_width="80dp"-->
+                        <!--android:layout_height="80dp"-->
+                        <!--android:layout_marginStart="32dp"-->
+                        <!--android:layout_marginTop="16dp"-->
+                        <!--app:layout_constraintStart_toStartOf="parent"-->
+                        <!--app:layout_constraintTop_toTopOf="parent"-->
+                        <!--app:srcCompat="@drawable/plus" />-->
 
-                    <TextView
-                        android:id="@+id/textView9"
-                        android:layout_width="333dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="31dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="41dp"
-                        android:layout_marginBottom="16dp"
-                        android:text="Фотография и имя будут загруженны из интернета случайным образом"
-                        android:textAlignment="center"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/createPhotoImage" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/textView9"-->
+                        <!--android:layout_width="333dp"-->
+                        <!--android:layout_height="50dp"-->
+                        <!--android:layout_marginStart="31dp"-->
+                        <!--android:layout_marginTop="16dp"-->
+                        <!--android:layout_marginEnd="41dp"-->
+                        <!--android:layout_marginBottom="16dp"-->
+                        <!--android:text="Фотография и имя будут загруженны из интернета случайным образом"-->
+                        <!--android:textAlignment="center"-->
+                        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                        <!--app:layout_constraintEnd_toEndOf="parent"-->
+                        <!--app:layout_constraintStart_toStartOf="parent"-->
+                        <!--app:layout_constraintTop_toBottomOf="@+id/createPhotoImage" />-->
 
-                </android.support.constraint.ConstraintLayout>
+                <!--</android.support.constraint.ConstraintLayout>-->
 
                 <TextView
                     android:id="@+id/textView6"
@@ -126,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:padding="10dp"
-                    android:text="Введите остальные данные"
+                    android:text="Измените данные"
                     android:textAlignment="center" />
 
                 <android.support.constraint.ConstraintLayout
@@ -157,7 +157,7 @@
                             app:srcCompat="@drawable/calendar" />
 
                         <TextView
-                            android:id="@+id/Birthday"
+                            android:id="@+id/birthday"
                             android:layout_width="162dp"
                             android:layout_height="30dp"
                             android:layout_marginTop="8dp"
@@ -279,7 +279,7 @@
                     android:layout_marginTop="20dp"
                     android:editable="true"
                     android:padding="10dp"
-                    android:text="Особенности"
+                    android:text="Измените особенности"
                     android:textAlignment="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -390,7 +390,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:padding="10dp"
-                    android:text="Привязка датчика"
+                    android:text="Измените привязку датчика"
                     android:textAlignment="center" />
 
                 <android.support.constraint.ConstraintLayout
@@ -546,7 +546,7 @@
                         android:layout_marginEnd="94dp"
                         android:layout_marginBottom="0dp"
                         android:background="@drawable/buttonshape_red"
-                        android:text="Сохранить"
+                        android:text="Обновить"
                         android:textColor="@color/redButtonTextColor"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

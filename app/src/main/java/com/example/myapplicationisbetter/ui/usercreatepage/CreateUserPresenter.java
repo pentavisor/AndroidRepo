@@ -22,6 +22,7 @@ import com.example.myapplicationisbetter.data.models.LoginAndPassModel;
 import com.example.myapplicationisbetter.data.models.UserDataModel;
 import com.example.myapplicationisbetter.data.models.UserProperties;
 import com.example.myapplicationisbetter.ui.MyHelper;
+import com.example.myapplicationisbetter.ui.userpage.UserAdapter;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -38,6 +39,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
+import java.util.regex.Pattern;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -77,7 +79,7 @@ public class CreateUserPresenter extends MvpPresenter<CreateUserView> {
         getViewState().setBirthdayText(sdf.format(myCalendar.getTime()));
     }
 
-    private void nextChainImage(UserDataModel userDataModel, UserProperties userProperties,Context context){
+    private void nextChainImage(UserDataModel userDataModel, UserProperties userProperties, Context context) {
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
@@ -87,7 +89,7 @@ public class CreateUserPresenter extends MvpPresenter<CreateUserView> {
                     URL randomUserEndPoint = new URL(u);
                     HttpsURLConnection myConnection = (HttpsURLConnection) randomUserEndPoint.openConnection();
 
-                    if (myConnection.getResponseCode() == 200){
+                    if (myConnection.getResponseCode() == 200) {
                         InputStream responseBody = myConnection.getInputStream();
                         InputStreamReader responseBodyReader = new InputStreamReader(responseBody, "UTF-8");
                         JsonReader jsonReaderForName = new JsonReader(responseBodyReader);
@@ -106,13 +108,13 @@ public class CreateUserPresenter extends MvpPresenter<CreateUserView> {
                                                 String key3 = jsonReaderForName.nextName();
                                                 if (key3.equals("large")) {
                                                     userDataModel.imageName = jsonReaderForName.nextString();
-                                                    sendNewUserInDataBase(userDataModel,userProperties);
+                                                    sendNewUserInDataBase(userDataModel, userProperties);
 
-                                                }else {
+                                                } else {
                                                     jsonReaderForName.nextString();
                                                 }
                                             }
-                                        }else{
+                                        } else {
                                             jsonReaderForName.nextString();
                                         }
                                     }
@@ -134,11 +136,25 @@ public class CreateUserPresenter extends MvpPresenter<CreateUserView> {
     }
 
     public void saveDateInDateBase(UserDataModel userDataModel, UserProperties userProperties, Context context) {
-        //get user name
-        if(!MyHelper.isNetworkConnected()){
+
+        if (!Pattern.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}", userDataModel.sensorSecretCode)) {
+            getViewState().setSystemText("Неверный секретный код, попробуйте еще");
+            return;
+        }
+        if (!Pattern.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}", userDataModel.sensorNumber)) {
+            getViewState().setSystemText("Неверный номер сенсора, попробуйте еще");
+            return;
+        }
+        if (!Pattern.matches("(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{2,}", userDataModel.lastName)) {
+            getViewState().setSystemText("Неверная фамилия, попробуйте еще");
+            return;
+        }
+        if (!MyHelper.isNetworkConnected()) {
             getViewState().setSystemText("Включите доступ к интернету пожалуйста");
             return;
         }
+        //get user name
+
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
@@ -147,7 +163,7 @@ public class CreateUserPresenter extends MvpPresenter<CreateUserView> {
                     URL randomUserEndPoint = new URL(u);
                     HttpsURLConnection myConnection = (HttpsURLConnection) randomUserEndPoint.openConnection();
 
-                    if (myConnection.getResponseCode() == 200){
+                    if (myConnection.getResponseCode() == 200) {
                         InputStream responseBody = myConnection.getInputStream();
                         InputStreamReader responseBodyReader = new InputStreamReader(responseBody, "UTF-8");
                         JsonReader jsonReaderForName = new JsonReader(responseBodyReader);
@@ -163,15 +179,15 @@ public class CreateUserPresenter extends MvpPresenter<CreateUserView> {
                                         if (key2.equals("name")) {
                                             jsonReaderForName.beginObject();
                                             while (jsonReaderForName.hasNext()) {
-                                                    String key3 = jsonReaderForName.nextName();
-                                                    if (key3.equals("first")) {
-                                                        userDataModel.firstName = jsonReaderForName.nextString();
-                                                        nextChainImage(userDataModel,userProperties,context);
-                                                    }else {
-                                                        jsonReaderForName.nextString();
-                                                    }
+                                                String key3 = jsonReaderForName.nextName();
+                                                if (key3.equals("first")) {
+                                                    userDataModel.firstName = jsonReaderForName.nextString();
+                                                    nextChainImage(userDataModel, userProperties, context);
+                                                } else {
+                                                    jsonReaderForName.nextString();
+                                                }
                                             }
-                                        }else{
+                                        } else {
                                             jsonReaderForName.nextString();
                                         }
                                     }
@@ -190,13 +206,11 @@ public class CreateUserPresenter extends MvpPresenter<CreateUserView> {
                 }
 
 
-
-
             }
         });
-      }
+    }
 
-    private void sendNewUserInDataBase(UserDataModel userDataModel, UserProperties userProperties){
+    private void sendNewUserInDataBase(UserDataModel userDataModel, UserProperties userProperties) {
         App.getInstance()
                 .getDatabase()
                 .userDao()
@@ -207,7 +221,7 @@ public class CreateUserPresenter extends MvpPresenter<CreateUserView> {
                     @Override
                     public void onSuccess(List<UserDataModel> id) {
                         if (id.size() == 0)
-                            id.add(new UserDataModel(1, "", "", "", "", true, "", "", 0,"", 1));
+                            id.add(new UserDataModel(1, "", "", "", "", true, "", "", 0, "", 1));
                         Completable.fromAction(() -> {
                             // getViewState().setSystemText(id.get(0).toString());
                             userDataModel.future_id = id.get(0).future_id + 1;
@@ -224,9 +238,6 @@ public class CreateUserPresenter extends MvpPresenter<CreateUserView> {
         getViewState().setSystemText("Сохранение Успешно");
         getViewState().goToUserList();
     }
-
-
-
 
 
 }

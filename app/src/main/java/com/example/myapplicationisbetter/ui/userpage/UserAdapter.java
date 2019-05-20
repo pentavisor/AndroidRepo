@@ -53,6 +53,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(UserAdapter.ViewHolder holder, int position) {
         UserDataModel user = users.get(position);
+       // if(position == 1) holder.view.setMinimumHeight(0);
         if (position == 0) {
             holder.littleImage.setVisibility(View.INVISIBLE);
             holder.littleImageMask.setVisibility(View.INVISIBLE);
@@ -60,7 +61,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             holder.mainImage.setImageResource(user.imageLink);
         }else{
             if(user.imageName.equals("")){
-                holder.mainImage.setImageDrawable(getCircleBitmap(user.imageLink));
+                holder.mainImage.setImageDrawable(MyHelper.getCircleBitmap(user.imageLink));
             }else{
                 Picasso.get()
                         .load(user.imageName)
@@ -69,7 +70,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                             @Override
                             public void onSuccess() {
                                 holder.mainImage.setImageDrawable(
-                                        getCircleBitmap(holder.mainImage.getDrawable())
+                                        MyHelper.getCircleBitmap(holder.mainImage.getDrawable(),0.8f)
                                 );
                             }
 
@@ -83,7 +84,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                                             @Override
                                             public void onSuccess() {
                                                 holder.mainImage.setImageDrawable(
-                                                        getCircleBitmap(holder.mainImage.getDrawable())
+                                                        MyHelper.getCircleBitmap(holder.mainImage.getDrawable(),0.8f)
                                                 );
                                             }
 
@@ -141,36 +142,15 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         final ImageView mainImage, littleImage, littleImageMask, imageMask;
+        final  View view;
 
         ViewHolder(View view) {
             super(view);
+            this.view = view;
             mainImage = (ImageView) view.findViewById(R.id.imagemain);
             littleImage = (ImageView) view.findViewById(R.id.imagelittle);
             imageMask = (ImageView)view.findViewById(R.id.imagemask);
             littleImageMask = (ImageView) view.findViewById(R.id.imagemasklittle);
         }
     }
-
-    private RoundedBitmapDrawable getCircleBitmap(int resourceLink) {
-
-        Resources res = App.getInstance().getResources();
-        Bitmap src = BitmapFactory.decodeResource(res, resourceLink);
-        RoundedBitmapDrawable dr = RoundedBitmapDrawableFactory.create(res, src);
-        dr.setCornerRadius(Math.max(src.getWidth(), src.getHeight()) / 2.0f);
-
-        return dr;
-    }
-    private RoundedBitmapDrawable getCircleBitmap(Drawable drawable) {
-
-        BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-        Bitmap src = null;
-        if (bitmapDrawable!=null) src = bitmapDrawable.getBitmap();
-        Resources res = App.getInstance().getResources();
-        RoundedBitmapDrawable dr = RoundedBitmapDrawableFactory.create(res, src);
-        dr.setCornerRadius( dr.getIntrinsicWidth() /0.8f);
-
-        return dr;
-    }
-
-
 }

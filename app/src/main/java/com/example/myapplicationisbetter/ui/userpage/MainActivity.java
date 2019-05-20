@@ -2,28 +2,23 @@ package com.example.myapplicationisbetter.ui.userpage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.arellomobile.mvp.presenter.PresenterType;
 import com.example.myapplicationisbetter.R;
 import com.example.myapplicationisbetter.data.models.UserDataModel;
 import com.example.myapplicationisbetter.data.models.UserProperties;
 import com.example.myapplicationisbetter.ui.ItemClickSupport;
+import com.example.myapplicationisbetter.ui.updatepage.UpdateActivity;
 import com.example.myapplicationisbetter.ui.usercreatepage.CreateUserActivity;
 import com.example.myapplicationisbetter.ui.userpage.fragments.UserInformFragment;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-import java.util.List;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +44,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         Picasso.Builder builder = new Picasso.Builder(this);
         builder.downloader(new OkHttp3Downloader(this,Integer.MAX_VALUE));
         Picasso built = builder.build();
-        built.setIndicatorsEnabled(true);
+        built.setIndicatorsEnabled(false);
         built.setLoggingEnabled(true);
         Picasso.setSingletonInstance(built);
 
@@ -69,7 +64,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         recyclerView.setAdapter(adapter);
         mainPresenter.userListInit();
         fragment.setText(adapter.getItem(1),null);
-        fragment.setOnItemDeleteListener(new UserInformFragment.OnItemDeleteListener() {
+
+        fragment.setOnItemDeleteListener(new UserInformFragment.OnItemChangeListener() {
             @Override
             public void DeleteActionChecker(UserDataModel userDataModel) {
                 if(userDataModel.id >= 0) {
@@ -79,6 +75,13 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
                 }
             }
         });
+        fragment.setOnOpenUpdateWindowListener(new UserInformFragment.OnItemUpdateListener() {
+            @Override
+            public void OpenUpdateWindowListener(UserDataModel userDataModel, UserProperties userProperties) {
+                goUpdateUserPage(userDataModel,userProperties);
+            }
+        });
+
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener((recyclerView, position, view) -> {
             switch (adapter.getItem(position).id) {
                 case (-1):
@@ -92,6 +95,13 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         });
 
     }
+    public void goUpdateUserPage( UserDataModel userDataModel, UserProperties userProperties){
+        Intent intent = new Intent(this, UpdateActivity.class);
+        intent.putExtra("currentUserDataModel", userDataModel);
+        intent.putExtra("currentUserProperties", userProperties);
+        startActivity(intent);
+    }
+
 
     @Override
     public void setTextInFragment(UserDataModel userDataModel, UserProperties userProperties){
