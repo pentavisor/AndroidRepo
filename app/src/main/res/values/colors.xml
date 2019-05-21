@@ -10,4 +10,5 @@
     <color name="bgcolor">#F2F2F2</color>
     <color name="black">#000000</color>
     <color name="darkGray">#808080</color>
+    <color name="bgcolorlight">#FDFDFD</color>
 </resources>

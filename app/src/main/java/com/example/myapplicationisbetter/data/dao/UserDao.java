@@ -42,7 +42,7 @@ public interface UserDao {
     void update(UserDataModel user);
 
     @Delete
-    void deleteOnId(UserDataModel user);
+    void deleteUser(UserDataModel user);
 
     @Query("DELETE FROM user_list")
     void deleteAll();

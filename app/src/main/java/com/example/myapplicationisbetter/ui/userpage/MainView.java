@@ -12,5 +12,5 @@ public interface MainView extends MvpView {
     void deleteUsers(List<UserDataModel> list);
     void deleteAllUsers();
     void goCreateUserPage();
-    void setTextInFragment(UserDataModel userDataModel, UserProperties userProperties);
+    void setText(UserDataModel userDataModel, UserProperties userProperties);
 }

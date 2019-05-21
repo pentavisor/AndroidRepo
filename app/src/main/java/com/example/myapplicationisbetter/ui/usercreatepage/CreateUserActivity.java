@@ -3,7 +3,6 @@ package com.example.myapplicationisbetter.ui.usercreatepage;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
@@ -27,7 +26,6 @@ import com.example.myapplicationisbetter.App;
 import com.example.myapplicationisbetter.R;
 import com.example.myapplicationisbetter.data.models.UserDataModel;
 import com.example.myapplicationisbetter.data.models.UserProperties;
-import com.example.myapplicationisbetter.ui.ItemClickSupport;
 import com.example.myapplicationisbetter.ui.userpage.MainActivity;
 
 public class CreateUserActivity extends MvpAppCompatActivity implements CreateUserView {
@@ -114,30 +112,16 @@ public class CreateUserActivity extends MvpAppCompatActivity implements CreateUs
                 return;
             }
         });
-        birthdayText.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if ((createUserPresenter.date != null) & (createUserPresenter.myCalendar != null))
-                    new DatePickerDialog(CreateUserActivity.this, createUserPresenter.date, createUserPresenter.myCalendar
-                            .get(Calendar.YEAR), createUserPresenter.myCalendar.get(Calendar.MONTH),
-                            createUserPresenter.myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
+        birthdayText.setOnClickListener(v -> {
+            if ((createUserPresenter.date != null) & (createUserPresenter.myCalendar != null))
+                new DatePickerDialog(CreateUserActivity.this, createUserPresenter.date, createUserPresenter.myCalendar
+                        .get(Calendar.YEAR), createUserPresenter.myCalendar.get(Calendar.MONTH),
+                        createUserPresenter.myCalendar.get(Calendar.DAY_OF_MONTH)).show();
         });
 
-        sensorNumberView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showAddSensorNumberWindow(CreateUserActivity.this);
-            }
-        });
+        sensorNumberView.setOnClickListener(v -> showAddSensorNumberWindow(CreateUserActivity.this));
 
-        secretCodeView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showAddSecretCodeWindow(CreateUserActivity.this);
-            }
-        });
+        secretCodeView.setOnClickListener(v -> showAddSecretCodeWindow(CreateUserActivity.this));
 
 
     }
@@ -148,12 +132,7 @@ public class CreateUserActivity extends MvpAppCompatActivity implements CreateUs
                 .setTitle ("Добвьте датчик")
                 .setMessage ("Введите номер датчика")
                 .setView (taskEditText)
-                .setPositiveButton("Добавить", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        userDataModel.sensorNumber = String.valueOf(taskEditText.getText());
-                    }
-                })
+                .setPositiveButton("Добавить", (dialog1, which) -> userDataModel.sensorNumber = String.valueOf(taskEditText.getText()))
                 .setNegativeButton("Отмена", null)
                 .create();
         dialog.show();
@@ -166,12 +145,7 @@ public class CreateUserActivity extends MvpAppCompatActivity implements CreateUs
                 .setTitle ("Проверка датчика")
                 .setMessage ("Введите секретный код")
                 .setView (taskEditText)
-                .setPositiveButton("Добавить", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        userDataModel.sensorSecretCode = String.valueOf(taskEditText.getText());
-                    }
-                })
+                .setPositiveButton("Добавить", (dialog1, which) -> userDataModel.sensorSecretCode = String.valueOf(taskEditText.getText()))
                 .setNegativeButton("Отмена", null)
                 .create();
         dialog.show();

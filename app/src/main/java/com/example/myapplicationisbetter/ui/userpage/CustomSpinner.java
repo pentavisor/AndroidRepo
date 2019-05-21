@@ -1,9 +1,7 @@
-package com.example.myapplicationisbetter.ui.userpage.fragments;
+package com.example.myapplicationisbetter.ui.userpage;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatSpinner;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -11,11 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.myapplicationisbetter.R;
-import com.example.myapplicationisbetter.ui.userpage.UserAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,16 +129,6 @@ public class CustomSpinner extends AppCompatSpinner {
     }
 
 
-
-//    public @Nullable Object getItem(int position) {
-//        if(spinSettingAdapter != null && position < spinSettingAdapter.getCount()) {
-//            return spinSettingAdapter.getItem(position);
-//        } else {
-//            return null;
-//        }
-//    }
-
-
     public class CustomAdapter<String> extends ArrayAdapter<String> {
         private LayoutInflater flater;
         private int layout;
@@ -171,18 +157,8 @@ public class CustomSpinner extends AppCompatSpinner {
             }else {
                 viewHolder = (ViewHolderMain)convertView.getTag();
             }
-            viewHolder.gearIm.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ca.performClick();
-                }
-            });
-            viewHolder.triangleIm.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ca.performClick();
-                }
-            });
+            viewHolder.gearIm.setOnClickListener(v -> ca.performClick());
+            viewHolder.triangleIm.setOnClickListener(v -> ca.performClick());
             viewHolder.strTxt.setText("");
             return convertView;
         }
