@@ -18,8 +18,8 @@ public final class App extends Application {
         instance = this;
 //        database = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "database").allowMainThreadQueries()
 //                .build();
-        database = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "database")
-                .fallbackToDestructiveMigration()//удаляет старую базу если нет путей миграции
+        database = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, App.getInstance().getResources().getString(R.string.database_name))
+                .fallbackToDestructiveMigration()
                 .build();
         LeakCanary.install(this);
     }

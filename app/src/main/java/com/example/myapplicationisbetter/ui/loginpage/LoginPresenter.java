@@ -35,7 +35,6 @@ public class LoginPresenter extends MvpPresenter<LoginView> {
                             public void onSuccess(LoginAndPassModel loginAndPassModel) {
                                 firstQueryLoginAndPassModel = new LoginAndPassModel(loginAndPassModel.login, loginAndPassModel.password);
                                 setMessageInText(loginAndPassModel);
-                                //открыть кнопку входа и резет
                                 disposables.dispose();
                             }
 
@@ -49,7 +48,6 @@ public class LoginPresenter extends MvpPresenter<LoginView> {
                             public void onComplete() {
                                 LoginAndPassModel loginAndPassModel = null;
                                 setMessageInText(loginAndPassModel);
-                                //открыть кнопку входа
                                 disposables.dispose();
                             }
                         }));

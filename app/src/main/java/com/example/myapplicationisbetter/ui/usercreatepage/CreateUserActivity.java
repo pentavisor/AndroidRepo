@@ -129,11 +129,11 @@ public class CreateUserActivity extends MvpAppCompatActivity implements CreateUs
     private void showAddSensorNumberWindow (Context c) {
         final EditText taskEditText = new EditText (c);
         AlertDialog dialog = new AlertDialog.Builder (c)
-                .setTitle ("Добвьте датчик")
-                .setMessage ("Введите номер датчика")
+                .setTitle(App.getInstance().getResources().getString(R.string.set_sensor))
+                .setMessage(App.getInstance().getResources().getString(R.string.set_sensor_number))
                 .setView (taskEditText)
-                .setPositiveButton("Добавить", (dialog1, which) -> userDataModel.sensorNumber = String.valueOf(taskEditText.getText()))
-                .setNegativeButton("Отмена", null)
+                .setPositiveButton(App.getInstance().getResources().getString(R.string.put_one), (dialog1, which) -> userDataModel.sensorNumber = String.valueOf(taskEditText.getText()))
+                .setNegativeButton(App.getInstance().getResources().getString(R.string.cancel), null)
                 .create();
         dialog.show();
     }
@@ -142,11 +142,11 @@ public class CreateUserActivity extends MvpAppCompatActivity implements CreateUs
         final EditText taskEditText = new EditText (c);
         taskEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
         AlertDialog dialog = new AlertDialog.Builder (c)
-                .setTitle ("Проверка датчика")
-                .setMessage ("Введите секретный код")
+                .setTitle(App.getInstance().getResources().getString(R.string.check_sensor))
+                .setMessage(App.getInstance().getResources().getString(R.string.set_secret_code))
                 .setView (taskEditText)
-                .setPositiveButton("Добавить", (dialog1, which) -> userDataModel.sensorSecretCode = String.valueOf(taskEditText.getText()))
-                .setNegativeButton("Отмена", null)
+                .setPositiveButton(App.getInstance().getResources().getString(R.string.put_one), (dialog1, which) -> userDataModel.sensorSecretCode = String.valueOf(taskEditText.getText()))
+                .setNegativeButton(App.getInstance().getResources().getString(R.string.cancel), null)
                 .create();
         dialog.show();
     }

@@ -8,6 +8,7 @@ import android.util.JsonReader;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.example.myapplicationisbetter.App;
+import com.example.myapplicationisbetter.R;
 import com.example.myapplicationisbetter.data.models.UserDataModel;
 import com.example.myapplicationisbetter.data.models.UserProperties;
 import com.example.myapplicationisbetter.ui.MyHelper;
@@ -108,19 +109,19 @@ public class CreateUserPresenter extends MvpPresenter<CreateUserView> {
     public void saveDateInDateBase(UserDataModel userDataModel, UserProperties userProperties, Context context) {
 
         if (!Pattern.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}", userDataModel.sensorSecretCode)) {
-            getViewState().setSystemText("Неверный секретный код, попробуйте еще");
+            getViewState().setSystemText(App.getInstance().getResources().getString(R.string.wrong_secret_code));
             return;
         }
         if (!Pattern.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}", userDataModel.sensorNumber)) {
-            getViewState().setSystemText("Неверный номер сенсора, попробуйте еще");
+            getViewState().setSystemText(App.getInstance().getResources().getString(R.string.wrong_sensor_number));
             return;
         }
         if (!Pattern.matches("(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{2,}", userDataModel.lastName)) {
-            getViewState().setSystemText("Неверная фамилия, попробуйте еще");
+            getViewState().setSystemText(App.getInstance().getResources().getString(R.string.wrong_last_name));
             return;
         }
         if (!MyHelper.isNetworkConnected()) {
-            getViewState().setSystemText("Включите доступ к интернету пожалуйста");
+            getViewState().setSystemText(App.getInstance().getResources().getString(R.string.internet_error));
             return;
         }
         //get user name
@@ -201,7 +202,7 @@ public class CreateUserPresenter extends MvpPresenter<CreateUserView> {
                         // ...
                     }
                 });
-        getViewState().setSystemText("Сохранение Успешно");
+        getViewState().setSystemText(App.getInstance().getResources().getString(R.string.saving_was_done));
         getViewState().goToUserList();
     }
 

@@ -21,7 +21,7 @@ public class LoginActivity extends MvpAppCompatActivity implements LoginView {
     TextView sysMess;
     Button buttonInput;
     Button buttonReset;
-    Button buttonfirstlogin;
+    Button buttonFirstLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +33,12 @@ public class LoginActivity extends MvpAppCompatActivity implements LoginView {
         loginTextBox = findViewById(R.id.Login);
         buttonInput = findViewById(R.id.buttonInput);
         buttonReset = findViewById(R.id.buttonReset);
-        buttonfirstlogin = findViewById(R.id.buttonfustlogin);
+        buttonFirstLogin = findViewById(R.id.buttonfustlogin);
         sysMess = findViewById(R.id.SysMess);
         sysMess.setMovementMethod(new ScrollingMovementMethod());
         buttonInput.setOnClickListener(x -> loginPresenter.btnSet());
         buttonReset.setOnClickListener(x -> loginPresenter.btnReset());
-        buttonfirstlogin.setOnClickListener(x -> goInUserListPage());
+        buttonFirstLogin.setOnClickListener(x -> goInUserListPage());
 
     }
 

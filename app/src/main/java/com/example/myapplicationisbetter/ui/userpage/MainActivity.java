@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.example.myapplicationisbetter.App;
 import com.example.myapplicationisbetter.R;
 import com.example.myapplicationisbetter.data.models.UserDataModel;
 import com.example.myapplicationisbetter.data.models.UserProperties;
@@ -112,8 +113,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
 
         });
 
-        String[] spinnerChoiseArray = {"","Изменить", "Удалить"};
-        settingSpinner.initAdapter(this,spinnerChoiseArray);
+        settingSpinner.initAdapter(this, App.getInstance().getResources().getStringArray(R.array.delete_update_choice));
         settingSpinner.setSelection(0);
         settingSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -152,8 +152,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     }
     public void goUpdateUserPage( UserDataModel userDataModel, UserProperties userProperties){
         Intent intent = new Intent(this, UpdateActivity.class);
-        intent.putExtra("currentUserDataModel", userDataModel);
-        intent.putExtra("currentUserProperties", userProperties);
+        intent.putExtra(App.getInstance().getResources().getString(R.string.user_data_model), userDataModel);
+        intent.putExtra(App.getInstance().getResources().getString(R.string.user_properties), userProperties);
         startActivity(intent);
     }
 
@@ -215,10 +215,10 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         if (userProperties == null){
             userProperties = new UserProperties(0,false,false,false,false);
         }
-        sportText.setText(userProperties.sport?"Занимается спортом":"Не занимается спортом");
-        flowerText.setText(userProperties.flowers?"Любит цветы":"Не любит цветы");
-        mushroomsText.setText(userProperties.mushrooms?"Собирает грибы":"Не собирает грибы");
-        crazyText.setText(userProperties.funnyCat?"Гламурное Кисо":"Не гломурное кисо");
+        sportText.setText(userProperties.sport?App.getInstance().getResources().getString(R.string.sport_sw):App.getInstance().getResources().getString(R.string.sport_sw_not));
+        flowerText.setText(userProperties.flowers?App.getInstance().getResources().getString(R.string.flowers_sw):App.getInstance().getResources().getString(R.string.flowers_sw_not));
+        mushroomsText.setText(userProperties.mushrooms?App.getInstance().getResources().getString(R.string.mushrooms_sw):App.getInstance().getResources().getString(R.string.mushrooms_sw_not));
+        crazyText.setText(userProperties.funnyCat?App.getInstance().getResources().getString(R.string.crazy_sw):App.getInstance().getResources().getString(R.string.crazy_sw_not));
 
         if(udm.imageName.equals("")){
             photoImage.setImageResource(udm.imageLink);
@@ -255,7 +255,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
 
         firstname.setText(udm.firstName);
         lastname.setText(udm.lastName);
-        sex.setText(udm.sex ? "Прекрасный мужчина" : "Великолепная женщина");
+        sex.setText(udm.sex ? App.getInstance().getResources().getString(R.string.sex_choice_msg_man): App.getInstance().getResources().getString(R.string.sex_choice_msg_woman));
         currentUserForDelete = udm;
         currentUserProperties = userProperties;
     }
