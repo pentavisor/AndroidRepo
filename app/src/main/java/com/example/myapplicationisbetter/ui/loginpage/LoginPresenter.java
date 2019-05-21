@@ -33,7 +33,7 @@ public class LoginPresenter extends MvpPresenter<LoginView> {
                         .subscribeWith(new DisposableMaybeObserver<LoginAndPassModel>() {
                             @Override
                             public void onSuccess(LoginAndPassModel loginAndPassModel) {
-                                loginAndPassModel = new LoginAndPassModel(loginAndPassModel.login, loginAndPassModel.password);
+                                firstQueryLoginAndPassModel = new LoginAndPassModel(loginAndPassModel.login, loginAndPassModel.password);
                                 setMessageInText(loginAndPassModel);
                                 //открыть кнопку входа и резет
                                 disposables.dispose();

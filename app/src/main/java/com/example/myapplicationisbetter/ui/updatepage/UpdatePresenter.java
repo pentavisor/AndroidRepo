@@ -10,6 +10,7 @@ import com.example.myapplicationisbetter.data.models.UserProperties;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 import io.reactivex.Completable;
 import io.reactivex.schedulers.Schedulers;
@@ -36,6 +37,19 @@ public class UpdatePresenter extends MvpPresenter<UpdateView> {
     }
 
     public void sendNewUserInDataBase(UserDataModel userDataModel, UserProperties userProperties) {
+
+        if (!Pattern.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}", userDataModel.sensorSecretCode)) {
+            getViewState().setSystemText("Неверный секретный код, попробуйте еще в рамках символов [0-9a-zA-Z]");
+            return;
+        }
+        if (!Pattern.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}", userDataModel.sensorNumber)) {
+            getViewState().setSystemText("Неверный номер сенсора, попробуйте еще в рамках символов [0-9a-zA-Z]");
+            return;
+        }
+        if (!Pattern.matches("(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{2,}", userDataModel.lastName)) {
+            getViewState().setSystemText("Неверная фамилия, попробуйте еще в рамках символов [a-zA-Z]");
+            return;
+        }
 
         Completable.fromAction(() -> {
             App.getInstance().getDatabase().userDaoTransaction().updateUserAndProperties(userDataModel, userProperties);

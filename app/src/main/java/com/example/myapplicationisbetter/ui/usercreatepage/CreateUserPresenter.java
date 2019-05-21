@@ -10,6 +10,7 @@ import com.arellomobile.mvp.MvpPresenter;
 import com.example.myapplicationisbetter.App;
 import com.example.myapplicationisbetter.data.models.UserDataModel;
 import com.example.myapplicationisbetter.data.models.UserProperties;
+import com.example.myapplicationisbetter.ui.MyHelper;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
+import java.util.regex.Pattern;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -105,22 +107,22 @@ public class CreateUserPresenter extends MvpPresenter<CreateUserView> {
 
     public void saveDateInDateBase(UserDataModel userDataModel, UserProperties userProperties, Context context) {
 
-//        if (!Pattern.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}", userDataModel.sensorSecretCode)) {
-//            getViewState().setSystemText("Неверный секретный код, попробуйте еще");
-//            return;
-//        }
-//        if (!Pattern.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}", userDataModel.sensorNumber)) {
-//            getViewState().setSystemText("Неверный номер сенсора, попробуйте еще");
-//            return;
-//        }
-//        if (!Pattern.matches("(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{2,}", userDataModel.lastName)) {
-//            getViewState().setSystemText("Неверная фамилия, попробуйте еще");
-//            return;
-//        }
-//        if (!MyHelper.isNetworkConnected()) {
-//            getViewState().setSystemText("Включите доступ к интернету пожалуйста");
-//            return;
-//        }
+        if (!Pattern.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}", userDataModel.sensorSecretCode)) {
+            getViewState().setSystemText("Неверный секретный код, попробуйте еще");
+            return;
+        }
+        if (!Pattern.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}", userDataModel.sensorNumber)) {
+            getViewState().setSystemText("Неверный номер сенсора, попробуйте еще");
+            return;
+        }
+        if (!Pattern.matches("(?=.*[a-z])(?=.*[A-Z])[a-zA-Z]{2,}", userDataModel.lastName)) {
+            getViewState().setSystemText("Неверная фамилия, попробуйте еще");
+            return;
+        }
+        if (!MyHelper.isNetworkConnected()) {
+            getViewState().setSystemText("Включите доступ к интернету пожалуйста");
+            return;
+        }
         //get user name
 
         AsyncTask.execute(() -> {

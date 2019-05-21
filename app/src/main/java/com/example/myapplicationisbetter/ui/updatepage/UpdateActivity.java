@@ -11,10 +11,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.andexert.library.RippleView;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.example.myapplicationisbetter.App;
 import com.example.myapplicationisbetter.R;
 import com.example.myapplicationisbetter.data.models.UserDataModel;
 import com.example.myapplicationisbetter.data.models.UserProperties;
@@ -145,4 +147,10 @@ public class UpdateActivity extends MvpAppCompatActivity implements UpdateView {
     public void setBirthdayText(String string){
         birthday.setText(string);
     }
-}
+
+    @Override
+    public void setSystemText(String str){
+        Toast toast = Toast.makeText(App.getInstance().getApplicationContext(),
+                str, Toast.LENGTH_SHORT);
+        toast.show();
+    }}
