@@ -12,29 +12,26 @@ import com.example.myapplicationisbetter.R;
 
 import com.example.myapplicationisbetter.ui.userpage.MainActivity;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class LoginActivity extends MvpAppCompatActivity implements LoginView {
 
     @InjectPresenter
     LoginPresenter loginPresenter;
-    TextView loginTextBox;
-    TextView passwordTextBox;
-    TextView sysMess;
-    Button buttonInput;
-    Button buttonReset;
-    Button buttonFirstLogin;
+    @BindView(R.id.Login)TextView loginTextBox;
+    @BindView(R.id.Password) TextView passwordTextBox;
+    @BindView(R.id.SysMess) TextView sysMess;
+    @BindView(R.id.buttonInput) Button buttonInput;
+    @BindView(R.id.buttonReset) Button buttonReset;
+    @BindView(R.id.buttonfustlogin)Button buttonFirstLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
 
-
-        passwordTextBox = findViewById(R.id.Password);
-        loginTextBox = findViewById(R.id.Login);
-        buttonInput = findViewById(R.id.buttonInput);
-        buttonReset = findViewById(R.id.buttonReset);
-        buttonFirstLogin = findViewById(R.id.buttonfustlogin);
-        sysMess = findViewById(R.id.SysMess);
         sysMess.setMovementMethod(new ScrollingMovementMethod());
         buttonInput.setOnClickListener(x -> loginPresenter.btnSet());
         buttonReset.setOnClickListener(x -> loginPresenter.btnReset());
