@@ -28,83 +28,84 @@ import com.example.myapplicationisbetter.data.models.UserDataModel;
 import com.example.myapplicationisbetter.data.models.UserProperties;
 import com.example.myapplicationisbetter.ui.userpage.MainActivity;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class CreateUserActivity extends MvpAppCompatActivity implements CreateUserView {
     @InjectPresenter
     CreateUserPresenter createUserPresenter;
 
+    @BindView(R.id.secret_code)
     RippleView secretCodeView;
+    @BindView(R.id.sensor_number)
     RippleView sensorNumberView;
 
+    @BindView(R.id.createPhotoImage)
     ImageView imagePhoto;
+    @BindView(R.id.Birthday)
     TextView birthdayText;
+    @BindView(R.id.firstname)
     TextView firstName;
+    @BindView(R.id.lastname)
     EditText lastName;
 
+    @BindView(R.id.sportSwith)
     Switch sportSw;
+    @BindView(R.id.flowerSwith)
     Switch flowerSw;
+    @BindView(R.id.mushroomSwith)
     Switch mushroomSw;
+    @BindView(R.id.crazySwith)
     Switch crazySw;
+
+    @BindView(R.id.save_button)
+    Button saveButton;
+    @BindView(R.id.spinner)
+    Spinner spinner;
 
     UserProperties userProperties;
     UserDataModel userDataModel;
 
-    Spinner spinner;
-    ArrayAdapter<String> sexChoise;
-    Button saveButton;
+    ArrayAdapter<String> sexChoice;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_user);
-        saveButton =(Button) findViewById(R.id.save_button);
+        ButterKnife.bind(this);
 
-        birthdayText = (TextView) findViewById(R.id.Birthday);
-        secretCodeView = (RippleView) findViewById(R.id.secret_code);
-        sensorNumberView = (RippleView) findViewById(R.id.sensor_number);
-        imagePhoto = (ImageView) findViewById(R.id.createPhotoImage);
-        firstName = (TextView) findViewById(R.id.firstname);
-        lastName = (EditText) findViewById(R.id.lastname);
-        spinner = (Spinner) findViewById(R.id.spinner);
+        userProperties = new UserProperties(0, false, false, false, false);
+        userDataModel = new UserDataModel(0, "", "", "", "", false, "0000", "1111", R.drawable.mustache, "", 0);
 
-        sportSw =(Switch) findViewById(R.id.sportSwith);
-        flowerSw =(Switch) findViewById(R.id.flowerSwith);
-        mushroomSw =(Switch) findViewById(R.id.mushroomSwith);
-        crazySw =(Switch) findViewById(R.id.crazySwith);
-
-
-
-        userProperties = new UserProperties(0,false,false,false,false);
-        userDataModel = new UserDataModel(0,"","","","",false,"0000","1111", R.drawable.mustache,"",0);
-
-
-        sexChoise = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.sex_choice));
-        spinner.setAdapter(sexChoise);
+        sexChoice = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.sex_choice));
+        spinner.setAdapter(sexChoice);
         createUserPresenter.calendarInit();
 
+        sportSw.setOnCheckedChangeListener((c, b) -> userProperties.sport = b);
+        flowerSw.setOnCheckedChangeListener((c, b) -> userProperties.flowers = b);
+        mushroomSw.setOnCheckedChangeListener((c, b) -> userProperties.mushrooms = b);
+        crazySw.setOnCheckedChangeListener((c, b) -> userProperties.funnyCat = b);
 
-        sportSw.setOnCheckedChangeListener((c,b)-> userProperties.sport = b );
-        flowerSw.setOnCheckedChangeListener((c,b)-> userProperties.flowers = b );
-        mushroomSw.setOnCheckedChangeListener((c,b)-> userProperties.mushrooms = b );
-        crazySw.setOnCheckedChangeListener((c,b)-> userProperties.funnyCat = b );
 
-
-        saveButton.setOnClickListener((x)-> {
+        saveButton.setOnClickListener((x) -> {
 
             userDataModel.lastName = lastName.getText().toString();
             userDataModel.firstName = lastName.getText().toString();// переделать в соответствии с тз
             userDataModel.imageLink = R.drawable.gears;
-            createUserPresenter.saveDateInDateBase(userDataModel,userProperties,this);
+            createUserPresenter.saveDateInDateBase(userDataModel, userProperties);
         });
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-               switch (i){
-                   case (1):userDataModel.sex = true;
-                   break;
-                   case (2):userDataModel.sex = false;
-                   break;
-               }
+                switch (i) {
+                    case (1):
+                        userDataModel.sex = true;
+                        break;
+                    case (2):
+                        userDataModel.sex = false;
+                        break;
+                }
             }
 
             @Override
@@ -126,25 +127,25 @@ public class CreateUserActivity extends MvpAppCompatActivity implements CreateUs
 
     }
 
-    private void showAddSensorNumberWindow (Context c) {
-        final EditText taskEditText = new EditText (c);
-        AlertDialog dialog = new AlertDialog.Builder (c)
+    private void showAddSensorNumberWindow(Context c) {
+        final EditText taskEditText = new EditText(c);
+        AlertDialog dialog = new AlertDialog.Builder(c)
                 .setTitle(App.getInstance().getResources().getString(R.string.set_sensor))
                 .setMessage(App.getInstance().getResources().getString(R.string.set_sensor_number))
-                .setView (taskEditText)
+                .setView(taskEditText)
                 .setPositiveButton(App.getInstance().getResources().getString(R.string.put_one), (dialog1, which) -> userDataModel.sensorNumber = String.valueOf(taskEditText.getText()))
                 .setNegativeButton(App.getInstance().getResources().getString(R.string.cancel), null)
                 .create();
         dialog.show();
     }
 
-    private void showAddSecretCodeWindow (Context c) {
-        final EditText taskEditText = new EditText (c);
+    private void showAddSecretCodeWindow(Context c) {
+        final EditText taskEditText = new EditText(c);
         taskEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
-        AlertDialog dialog = new AlertDialog.Builder (c)
+        AlertDialog dialog = new AlertDialog.Builder(c)
                 .setTitle(App.getInstance().getResources().getString(R.string.check_sensor))
                 .setMessage(App.getInstance().getResources().getString(R.string.set_secret_code))
-                .setView (taskEditText)
+                .setView(taskEditText)
                 .setPositiveButton(App.getInstance().getResources().getString(R.string.put_one), (dialog1, which) -> userDataModel.sensorSecretCode = String.valueOf(taskEditText.getText()))
                 .setNegativeButton(App.getInstance().getResources().getString(R.string.cancel), null)
                 .create();
@@ -156,17 +157,20 @@ public class CreateUserActivity extends MvpAppCompatActivity implements CreateUs
         birthdayText.setText(text);
         userDataModel.birthday = text;
     }
+
     @Override
-    public void setSystemText(String str){
+    public void setSystemText(String str) {
         Toast toast = Toast.makeText(App.getInstance().getApplicationContext(),
                 str, Toast.LENGTH_SHORT);
-                toast.show();
+        toast.show();
     }
+
     @Override
-    public void goToUserList(){
+    public void goToUserList() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

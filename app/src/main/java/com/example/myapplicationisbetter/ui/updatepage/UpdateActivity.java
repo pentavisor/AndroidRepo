@@ -24,23 +24,33 @@ import com.example.myapplicationisbetter.ui.userpage.MainActivity;
 
 import java.util.Calendar;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class UpdateActivity extends MvpAppCompatActivity implements UpdateView {
 
     @InjectPresenter
     UpdatePresenter updatePresenter;
 
+    @BindView(R.id.secret_code)
     RippleView secretCodeView;
+    @BindView(R.id.sensor_number)
     RippleView sensorNumberView;
-
+    @BindView(R.id.lastname)
     EditText lastName;
+    @BindView(R.id.birthday)
     TextView birthday;
+    @BindView(R.id.spinner)
     Spinner spinner;
-
+    @BindView(R.id.sportSwith)
     Switch sportSw;
+    @BindView(R.id.flowerSwith)
     Switch flowersSw;
+    @BindView(R.id.mushroomSwith)
     Switch mushroomsSw;
+    @BindView(R.id.crazySwith)
     Switch crazySw;
-
+    @BindView(R.id.save_button)
     Button startButton;
 
     UserDataModel userDataModel;
@@ -51,24 +61,13 @@ public class UpdateActivity extends MvpAppCompatActivity implements UpdateView {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
+        ButterKnife.bind(this);
+
         Bundle arguments = getIntent().getExtras();
         userDataModel = (UserDataModel) arguments.get(App.getInstance().getResources().getString(R.string.user_data_model));
         userProperties = (UserProperties) arguments.get(App.getInstance().getResources().getString(R.string.user_properties));
         arguments.clear();
         updatePresenter.calendarInit();
-
-        startButton = (Button) findViewById(R.id.save_button);
-
-        lastName = (EditText) findViewById(R.id.lastname);
-        birthday = (TextView) findViewById(R.id.birthday);
-        spinner = (Spinner) findViewById(R.id.spinner);
-        secretCodeView = (RippleView) findViewById(R.id.secret_code);
-        sensorNumberView = (RippleView) findViewById(R.id.sensor_number);
-
-        sportSw = (Switch) findViewById(R.id.sportSwith);
-        flowersSw = (Switch) findViewById(R.id.flowerSwith);
-        mushroomsSw = (Switch) findViewById(R.id.mushroomSwith);
-        crazySw = (Switch) findViewById(R.id.crazySwith);
 
         sportSw.setChecked(userProperties.sport);
         flowersSw.setChecked(userProperties.flowers);
@@ -84,10 +83,10 @@ public class UpdateActivity extends MvpAppCompatActivity implements UpdateView {
         }
 
 
-        sportSw.setOnCheckedChangeListener((c,b)-> userProperties.sport = b );
-        flowersSw.setOnCheckedChangeListener((c,b)-> userProperties.flowers = b );
-        mushroomsSw.setOnCheckedChangeListener((c,b)-> userProperties.mushrooms = b );
-        crazySw.setOnCheckedChangeListener((c,b)-> userProperties.funnyCat = b );
+        sportSw.setOnCheckedChangeListener((c, b) -> userProperties.sport = b);
+        flowersSw.setOnCheckedChangeListener((c, b) -> userProperties.flowers = b);
+        mushroomsSw.setOnCheckedChangeListener((c, b) -> userProperties.mushrooms = b);
+        crazySw.setOnCheckedChangeListener((c, b) -> userProperties.funnyCat = b);
 
         sensorNumberView.setOnClickListener(v -> showAddSensorNumberWindow(UpdateActivity.this));
 
@@ -150,13 +149,14 @@ public class UpdateActivity extends MvpAppCompatActivity implements UpdateView {
     }
 
     @Override
-    public void setBirthdayText(String string){
+    public void setBirthdayText(String string) {
         birthday.setText(string);
     }
 
     @Override
-    public void setSystemText(String str){
-        Toast toast = Toast.makeText(App.getInstance().getApplicationContext(),
+    public void setSystemText(String str) {
+        Toast toast = Toast.makeText(this,
                 str, Toast.LENGTH_SHORT);
         toast.show();
-    }}
+    }
+}

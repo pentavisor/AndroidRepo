@@ -1,5 +1,6 @@
 package com.example.myapplicationisbetter.ui.loginpage;
 
+import android.content.Context;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.InjectViewState;
@@ -21,10 +22,12 @@ import io.reactivex.schedulers.Schedulers;
 public class LoginPresenter extends MvpPresenter<LoginView> {
 
     LoginAndPassModel firstQueryLoginAndPassModel;
+    private Context currentContext;
 
     private CompositeDisposable disposables = new CompositeDisposable();
 
-    public LoginPresenter() {
+    public LoginPresenter(Context context) {
+        currentContext = context;
 
         disposables.add(
                 App.getInstance().getDatabase().loginAndPassDao().findFirstEntry()
@@ -60,13 +63,13 @@ public class LoginPresenter extends MvpPresenter<LoginView> {
 
     public void loginInit(String login, String pass) {
         if (!Pattern.matches("^((8|\\+7)[\\- ]?)?(\\(?9\\d{2}\\)?[\\- ]?)?[\\d\\- ]{7}$", login)) {
-            Toast toast = Toast.makeText(App.getInstance().getApplicationContext(),
+            Toast toast = Toast.makeText(currentContext,
                     App.getInstance().getResources().getString(R.string.wron_login), Toast.LENGTH_SHORT);
             toast.show();
             return;
         }
         if (!Pattern.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}", pass)) {
-            Toast toast = Toast.makeText(App.getInstance().getApplicationContext(),
+            Toast toast = Toast.makeText(currentContext,
                     App.getInstance().getResources().getString(R.string.wron_pass), Toast.LENGTH_SHORT);
             toast.show();
             return;
@@ -108,7 +111,11 @@ public class LoginPresenter extends MvpPresenter<LoginView> {
     }
 
     public void destroySubscribes() {
+
         disposables.clear();
+    }
+    public void destroyLinks() {
+        currentContext = null;
     }
 
 

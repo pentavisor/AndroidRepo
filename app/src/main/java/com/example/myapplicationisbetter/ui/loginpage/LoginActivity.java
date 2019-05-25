@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.example.myapplicationisbetter.R;
 
 import com.example.myapplicationisbetter.ui.userpage.MainActivity;
@@ -19,12 +20,23 @@ public class LoginActivity extends MvpAppCompatActivity implements LoginView {
 
     @InjectPresenter
     LoginPresenter loginPresenter;
-    @BindView(R.id.Login)TextView loginTextBox;
-    @BindView(R.id.Password) TextView passwordTextBox;
-    @BindView(R.id.SysMess) TextView sysMess;
-    @BindView(R.id.buttonInput) Button buttonInput;
-    @BindView(R.id.buttonReset) Button buttonReset;
-    @BindView(R.id.buttonfustlogin)Button buttonFirstLogin;
+    @BindView(R.id.Login)
+    TextView loginTextBox;
+    @BindView(R.id.Password)
+    TextView passwordTextBox;
+    @BindView(R.id.SysMess)
+    TextView sysMess;
+    @BindView(R.id.buttonInput)
+    Button buttonInput;
+    @BindView(R.id.buttonReset)
+    Button buttonReset;
+    @BindView(R.id.buttonfustlogin)
+    Button buttonFirstLogin;
+
+    @ProvidePresenter
+    LoginPresenter provideLoginPresenter() {
+        return new LoginPresenter(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +83,7 @@ public class LoginActivity extends MvpAppCompatActivity implements LoginView {
     protected void onDestroy() {
         super.onDestroy();
         loginPresenter.destroySubscribes();
+        loginPresenter.destroyLinks();
     }
 
 //    @Override

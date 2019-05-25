@@ -38,6 +38,7 @@ public class CreateUserPresenter extends MvpPresenter<CreateUserView> {
     public final Calendar myCalendar = Calendar.getInstance();
     public DatePickerDialog.OnDateSetListener date;
 
+
     public void calendarInit() {
         date = (view, year, monthOfYear, dayOfMonth) -> {
             myCalendar.set(Calendar.YEAR, year);
@@ -53,7 +54,7 @@ public class CreateUserPresenter extends MvpPresenter<CreateUserView> {
         getViewState().setBirthdayText(sdf.format(myCalendar.getTime()));
     }
 
-    private void nextChainImage(UserDataModel userDataModel, UserProperties userProperties, Context context) {
+    private void nextChainImage(UserDataModel userDataModel, UserProperties userProperties) {
         AsyncTask.execute(() -> {
             try {
 
@@ -106,7 +107,7 @@ public class CreateUserPresenter extends MvpPresenter<CreateUserView> {
         });
     }
 
-    public void saveDateInDateBase(UserDataModel userDataModel, UserProperties userProperties, Context context) {
+    public void saveDateInDateBase(UserDataModel userDataModel, UserProperties userProperties) {
 
         if (!Pattern.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}", userDataModel.sensorSecretCode)) {
             getViewState().setSystemText(App.getInstance().getResources().getString(R.string.wrong_secret_code));
@@ -151,7 +152,7 @@ public class CreateUserPresenter extends MvpPresenter<CreateUserView> {
                                             String key3 = jsonReaderForName.nextName();
                                             if (key3.equals("first")) {
                                                 userDataModel.firstName = jsonReaderForName.nextString();
-                                                nextChainImage(userDataModel, userProperties, context);
+                                                nextChainImage(userDataModel, userProperties);
                                             } else {
                                                 jsonReaderForName.nextString();
                                             }
