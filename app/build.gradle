@@ -9,14 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        //------------------костыль начало --чтобы Room не ругалась
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = ["room.schemaLocation":
-                                     "$projectDir/schemas".toString()]
-            }
-        }
-        //------------------костыль конец --чтобы Room не ругалась
+
     }
     buildTypes {
         release {
