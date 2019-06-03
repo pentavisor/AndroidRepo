@@ -33,11 +33,6 @@ public class LoginActivity extends MvpAppCompatActivity implements LoginView {
     @BindView(R.id.buttonfustlogin)
     Button buttonFirstLogin;
 
-    @ProvidePresenter
-    LoginPresenter provideLoginPresenter() {
-        return new LoginPresenter(this);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,27 +65,22 @@ public class LoginActivity extends MvpAppCompatActivity implements LoginView {
     public void blockButtonReset() {
         buttonReset.setClickable(false);
     }
+    @Override
+    public void unblockButtonReset() {
+        buttonReset.setClickable(true);
+    }
 
     @Override
     public void goInUserListPage() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-
-        startActivity(intent);
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        loginPresenter.destroySubscribes();
-        loginPresenter.destroyLinks();
+    protected void onResume() {
+        loginPresenter.loginQuery();
+        super.onResume();
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu){
-//        getMenuInflater().inflate(R.menu.menu_items, menu);
-//        return true;
-//    }
 
 }
 

@@ -1,260 +1,298 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/toolbarTop1"
+        <variable
+            name="myAdapter"
+            type="com.example.myapplicationisbetter.ui.userpage.UsersRecyclerViewAdapter">
+
+        </variable>
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="60dp"
+            android:background="@android:color/background_light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
                 android:src="@drawable/mustache" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
                 android:layout_marginStart="0dp"
                 android:layout_marginEnd="0dp"
-                android:layout_toEndOf="@+id/imageView2"
                 android:gravity="center_vertical"
                 android:text="@string/app_name"
                 android:textColor="@color/black"
-                android:textSize="25dp" />
+                android:textSize="25sp" />
 
-        </RelativeLayout>
-    </android.support.design.widget.AppBarLayout>
+        </LinearLayout>
 
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayoutList"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_below="@id/toolbarTop"
-        android:layout_marginTop="60dp">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/list"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="105dp"
+            android:layout_below="@+id/linearLayout2"
+            android:adapter="@{myAdapter}"
+            android:orientation="horizontal"
             android:scrollbars="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-    </android.support.constraint.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="160dp">
 
-        <android.support.constraint.ConstraintLayout
+        <LinearLayout
             android:id="@+id/newFutures"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="20dp"
-            android:background="@drawable/back"
-            tools:layout_editor_absoluteX="10dp">
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="175dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/circle_form_angle_v2"
+            android:orientation="vertical"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView">
 
-            <TextView
-                android:id="@+id/textInformName"
-                android:layout_width="118dp"
-                android:layout_height="25dp"
-                android:paddingStart="5dp"
-                android:text="Имя"
-                android:textAlignment="textStart"
-                android:textColor="@color/whiteButtonShadowColor"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/PhotoImageView"
-                app:layout_constraintTop_toTopOf="parent" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/firstname"
-                android:layout_width="180dp"
-                android:layout_height="25dp"
-                android:paddingStart="5dp"
-                android:text="firstname"
-                android:textAlignment="textStart"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/PhotoImageView"
-                app:layout_constraintTop_toBottomOf="@+id/textInformName" />
+                <ImageView
+                    android:id="@+id/PhotoImageView"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="35dp"
+                    android:contentDescription="TODO"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/mustache" />
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="115dp"
-                android:layout_height="25dp"
-                android:paddingStart="5dp"
-                android:text="Фамилия"
-                android:textAlignment="textStart"
-                android:textColor="@color/whiteButtonShadowColor"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/PhotoImageView"
-                app:layout_constraintTop_toBottomOf="@+id/firstname" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/lastname"
-                android:layout_width="180dp"
-                android:layout_height="25dp"
-                android:paddingStart="5dp"
-                android:text="lastname"
-                android:textAlignment="textStart"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/PhotoImageView"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                    <!--<com.example.myapplicationisbetter.ui.userpage.CustomSpinner-->
+                    <!--android:id="@+id/spinnerCa"-->
+                    <!--android:layout_width="152dp"-->
+                    <!--android:layout_height="33dp"-->
+                    <!--android:layout_gravity="right"-->
+                    <!--android:layout_marginStart="8dp"-->
+                    <!--android:layout_marginTop="4dp"-->
+                    <!--android:layout_marginEnd="4dp"-->
+                    <!--android:layout_marginBottom="8dp"-->
+                    <!--android:background="@drawable/image_divider"-->
+                    <!--android:overlapAnchor="false"-->
+                    <!--android:spinnerMode="dropdown"-->
+                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--app:layout_constraintHorizontal_bias="0.964"-->
+                    <!--app:layout_constraintStart_toStartOf="parent"-->
+                    <!--app:layout_constraintTop_toTopOf="parent"-->
+                    <!--app:layout_constraintVertical_bias="0.004">-->
 
-            <TextView
-                android:id="@+id/sportText"
-                android:layout_width="200dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="sportText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+                    <!--</com.example.myapplicationisbetter.ui.userpage.CustomSpinner>-->
 
-            <TextView
-                android:id="@+id/flowerText"
-                android:layout_width="200dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="flowerText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sportText" />
+                    <LinearLayout
+                        android:id="@+id/MySpinnerButton"
+                        android:layout_width="83dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="end"
+                        android:gravity="center"
+                        android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/mushroomsText"
-                android:layout_width="200dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="mashroomsText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/flowerText" />
+                        <ImageView
+                            android:id="@+id/imageView3"
+                            android:layout_width="45dp"
+                            android:layout_height="30dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/gear_icon_2" />
 
-            <TextView
-                android:id="@+id/crazyText"
-                android:layout_width="200dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="crazyText"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mushroomsText"
-                app:layout_constraintVertical_bias="0.0" />
+                        <ImageView
+                            android:id="@+id/triangleSpinner"
+                            android:layout_width="30dp"
+                            android:layout_height="10dp"
+                            android:layout_weight="1"
+                            app:srcCompat="@drawable/triangle_png_28" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textInformName"
+                        android:layout_width="115dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:paddingStart="5dp"
+                        android:text="Имя"
+                        android:textAlignment="center"
+                        android:textColor="@color/whiteButtonShadowColor"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/PhotoImageView"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/firstname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingStart="5dp"
+                        android:text="firstname"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/PhotoImageView"
+                        app:layout_constraintTop_toBottomOf="@+id/textInformName" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="115dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:paddingStart="5dp"
+                        android:text="Фамилия"
+                        android:textAlignment="center"
+                        android:textColor="@color/whiteButtonShadowColor"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/PhotoImageView"
+                        app:layout_constraintTop_toBottomOf="@+id/firstname" />
+
+                    <TextView
+                        android:id="@+id/lastname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:paddingStart="5dp"
+                        android:text="lastname"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/PhotoImageView"
+                        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/sex"
                 android:layout_width="202dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="28dp"
-                android:layout_marginEnd="8dp"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:gravity="center"
                 android:text="sex"
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/PhotoImageView" />
 
+            <LinearLayout
+                android:layout_width="151dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/PhotoImageView"
-                android:layout_width="110dp"
-                android:layout_height="110dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/mustache" />
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="Особенности"
+                    android:textAlignment="center"
+                    android:textColor="@color/whiteButtonShadowColor"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="150dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="8dp"
-                android:text="Особенности"
-                android:textAlignment="center"
-                android:textColor="@color/whiteButtonShadowColor"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view" />
+                <TextView
+                    android:id="@+id/sportText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="3dp"
+                    android:text="sportText"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-            <View
-                android:id="@+id/view"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="24dp"
-                android:background="@android:color/darker_gray"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sex" />
+                <TextView
+                    android:id="@+id/crazyText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="3dp"
+                    android:text="crazyText"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mushroomsText"
+                    app:layout_constraintVertical_bias="0.0" />
 
-            <com.example.myapplicationisbetter.ui.userpage.CustomSpinner
-                android:id="@+id/spinnerCa"
-                android:layout_width="152dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/image_divider"
-                android:overlapAnchor="false"
-                android:spinnerMode="dropdown"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.964"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.004">
+                <TextView
+                    android:id="@+id/flowerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="3dp"
+                    android:text="flowerText"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sportText" />
 
-            </com.example.myapplicationisbetter.ui.userpage.CustomSpinner>
+                <TextView
+                    android:id="@+id/mushroomsText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="3dp"
+                    android:text="mashroomsText"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/flowerText" />
+            </LinearLayout>
 
-        </android.support.constraint.ConstraintLayout>
 
-    </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
 
 
-</RelativeLayout>
+    </RelativeLayout>
+</layout>

@@ -22,38 +22,30 @@ import io.reactivex.schedulers.Schedulers;
 public class LoginPresenter extends MvpPresenter<LoginView> {
 
     LoginAndPassModel firstQueryLoginAndPassModel;
-    private Context currentContext;
 
-    private CompositeDisposable disposables = new CompositeDisposable();
+    public void loginQuery(){
 
-    public LoginPresenter(Context context) {
-        currentContext = context;
-
-        disposables.add(
                 App.getInstance().getDatabase().loginAndPassDao().findFirstEntry()
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(new DisposableMaybeObserver<LoginAndPassModel>() {
+                        .subscribe(new DisposableMaybeObserver<LoginAndPassModel>() {
                             @Override
                             public void onSuccess(LoginAndPassModel loginAndPassModel) {
                                 firstQueryLoginAndPassModel = new LoginAndPassModel(loginAndPassModel.login, loginAndPassModel.password);
                                 setMessageInText(loginAndPassModel);
-                                disposables.dispose();
                             }
 
                             @Override
                             public void onError(Throwable e) {
                                 // ...
-                                disposables.dispose();
                             }
 
                             @Override
                             public void onComplete() {
-                                LoginAndPassModel loginAndPassModel = null;
-                                setMessageInText(loginAndPassModel);
-                                disposables.dispose();
+                                firstQueryLoginAndPassModel = null;
+                                setMessageInText(firstQueryLoginAndPassModel);
                             }
-                        }));
+                        });
     }
 
     public void btnSet() {
@@ -63,13 +55,13 @@ public class LoginPresenter extends MvpPresenter<LoginView> {
 
     public void loginInit(String login, String pass) {
         if (!Pattern.matches("^((8|\\+7)[\\- ]?)?(\\(?9\\d{2}\\)?[\\- ]?)?[\\d\\- ]{7}$", login)) {
-            Toast toast = Toast.makeText(currentContext,
+            Toast toast = Toast.makeText(App.getInstance().getApplicationContext(),
                     App.getInstance().getResources().getString(R.string.wron_login), Toast.LENGTH_SHORT);
             toast.show();
             return;
         }
         if (!Pattern.matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}", pass)) {
-            Toast toast = Toast.makeText(currentContext,
+            Toast toast = Toast.makeText(App.getInstance().getApplicationContext(),
                     App.getInstance().getResources().getString(R.string.wron_pass), Toast.LENGTH_SHORT);
             toast.show();
             return;
@@ -107,16 +99,7 @@ public class LoginPresenter extends MvpPresenter<LoginView> {
             getViewState().blockButtonReset();
         } else {
             getViewState().setSystemMassage(App.getInstance().getResources().getString(R.string.entry_was_found));
+            getViewState().unblockButtonReset();
         }
     }
-
-    public void destroySubscribes() {
-
-        disposables.clear();
-    }
-    public void destroyLinks() {
-        currentContext = null;
-    }
-
-
 }

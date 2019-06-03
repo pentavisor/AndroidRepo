@@ -25,12 +25,17 @@ public class MainPresenter extends MvpPresenter<MainView> {
 
     public final int TEST_USER_PROFILE_DATA = 0;
 
-    public void userListInit() {
-
-        App.getInstance().getDatabase().userDao().getAll()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(employees -> getViewState().setUserList(employees));
+    public void goToCreateUserPage(){
+        getViewState().goCreateUserPage();
     }
+
+
+//    public void userListInit() {
+//
+//        App.getInstance().getDatabase().userDao().getAll()
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(employees -> getViewState().setUserList(employees));
+//    }
 
     public void deleteUser(UserDataModel userDataModel) {
         Completable.fromAction(() -> {
@@ -61,4 +66,4 @@ public class MainPresenter extends MvpPresenter<MainView> {
             getViewState().setText(userDataModel, null);
         }
     }
-}
+ }

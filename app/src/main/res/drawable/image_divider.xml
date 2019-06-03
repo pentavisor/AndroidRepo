@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<layer-list
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item
-        android:left="80dp"
-        android:drawable="@drawable/circle_spinner_angle" />
-
-</layer-list>

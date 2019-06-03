@@ -1,48 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft = "5dp"
-        android:paddingRight="5dp">
+        <variable
+            name="model"
+            type="com.example.myapplicationisbetter.data.models.UserDataModel" />
 
-        <ImageView
-            android:id="@+id/imagemain"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerInParent="true"
-            android:scaleType="fitXY" />
+        <variable
+            name="itemClickListener"
+            type="com.example.myapplicationisbetter.ui.userpage.CustomClickListenerRecyclerView" />
+    </data>
 
-        <ImageView
-            android:id="@+id/imagemask"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_centerInParent="true"
-            android:background="@drawable/circle"
-            android:scaleType="fitXY" />
+    <android.support.v7.widget.CardView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="4dp"
+        android:onClick="@{() -> itemClickListener.cardClicked(model)}"
+        app:cardBackgroundColor="@android:color/transparent">
 
-        <ImageView
-            android:id="@+id/imagelittle"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignEnd="@+id/imagemain"
-            android:layout_alignBottom="@+id/imagemain"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="6dp" />
-        <ImageView
-            android:id="@+id/imagemasklittle"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignEnd="@+id/imagemain"
-            android:layout_alignBottom="@+id/imagemain"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="6dp"
-            android:background="@drawable/circle_little"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/imagemain"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:scaleType="fitXY"
+                app:setUrl="@{model}" />
 
-</LinearLayout>
+            <ImageView
+                android:id="@+id/imagemask"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/circle"
+                android:scaleType="fitXY" />
+
+            <ImageView
+                android:id="@+id/imagelittle"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignEnd="@+id/imagemain"
+                android:layout_alignBottom="@+id/imagemain"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="6dp"
+                app:setIndicator="@{model}" />
+
+            <ImageView
+                android:id="@+id/imagemasklittle"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignEnd="@+id/imagemain"
+                android:layout_alignBottom="@+id/imagemain"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="6dp"
+                android:background="@drawable/circle_little" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</layout>

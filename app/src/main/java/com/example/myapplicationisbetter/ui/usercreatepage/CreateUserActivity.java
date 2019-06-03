@@ -35,33 +35,33 @@ public class CreateUserActivity extends MvpAppCompatActivity implements CreateUs
     @InjectPresenter
     CreateUserPresenter createUserPresenter;
 
-    @BindView(R.id.secret_code)
-    RippleView secretCodeView;
-    @BindView(R.id.sensor_number)
-    RippleView sensorNumberView;
-
-    @BindView(R.id.createPhotoImage)
-    ImageView imagePhoto;
-    @BindView(R.id.Birthday)
-    TextView birthdayText;
-    @BindView(R.id.firstname)
-    TextView firstName;
-    @BindView(R.id.lastname)
-    EditText lastName;
-
-    @BindView(R.id.sportSwith)
-    Switch sportSw;
-    @BindView(R.id.flowerSwith)
-    Switch flowerSw;
-    @BindView(R.id.mushroomSwith)
-    Switch mushroomSw;
-    @BindView(R.id.crazySwith)
-    Switch crazySw;
-
-    @BindView(R.id.save_button)
-    Button saveButton;
-    @BindView(R.id.spinner)
-    Spinner spinner;
+//    @BindView(R.id.secret_code)
+//    RippleView secretCodeView;
+//    @BindView(R.id.sensor_number)
+//    RippleView sensorNumberView;
+//
+//    @BindView(R.id.createPhotoImage)
+//    ImageView imagePhoto;
+//    @BindView(R.id.Birthday)
+//    TextView birthdayText;
+//    @BindView(R.id.firstname)
+//    TextView firstName;
+//    @BindView(R.id.lastname)
+//    EditText lastName;
+//
+//    @BindView(R.id.sportSwith)
+//    Switch sportSw;
+//    @BindView(R.id.flowerSwith)
+//    Switch flowerSw;
+//    @BindView(R.id.mushroomSwith)
+//    Switch mushroomSw;
+//    @BindView(R.id.crazySwith)
+//    Switch crazySw;
+//
+//    @BindView(R.id.save_button)
+//    Button saveButton;
+//    @BindView(R.id.spinner)
+//    Spinner spinner;
 
     UserProperties userProperties;
     UserDataModel userDataModel;
@@ -76,99 +76,102 @@ public class CreateUserActivity extends MvpAppCompatActivity implements CreateUs
         userProperties = new UserProperties(0, false, false, false, false);
         userDataModel = new UserDataModel(0, "", "", "", "", false, "0000", "1111", R.drawable.mustache, "", 0);
 
-        sexChoice = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.sex_choice));
-        spinner.setAdapter(sexChoice);
-        createUserPresenter.calendarInit();
+      //  sexChoice = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.sex_choice));
+      //  spinner.setAdapter(sexChoice);
+       // createUserPresenter.calendarInit();
 
-        sportSw.setOnCheckedChangeListener((c, b) -> userProperties.sport = b);
-        flowerSw.setOnCheckedChangeListener((c, b) -> userProperties.flowers = b);
-        mushroomSw.setOnCheckedChangeListener((c, b) -> userProperties.mushrooms = b);
-        crazySw.setOnCheckedChangeListener((c, b) -> userProperties.funnyCat = b);
+//        sportSw.setOnCheckedChangeListener((c, b) -> userProperties.sport = b);
+//        flowerSw.setOnCheckedChangeListener((c, b) -> userProperties.flowers = b);
+//        mushroomSw.setOnCheckedChangeListener((c, b) -> userProperties.mushrooms = b);
+//        crazySw.setOnCheckedChangeListener((c, b) -> userProperties.funnyCat = b);
 
+//
+//        saveButton.setOnClickListener((x) -> {
+//
+//            userDataModel.lastName = lastName.getText().toString();
+//            userDataModel.firstName = lastName.getText().toString();// переделать в соответствии с тз
+//            userDataModel.imageLink = R.drawable.gears;
+//           // createUserPresenter.saveDateInDateBase(userDataModel, userProperties);
+//        });
 
-        saveButton.setOnClickListener((x) -> {
-
-            userDataModel.lastName = lastName.getText().toString();
-            userDataModel.firstName = lastName.getText().toString();// переделать в соответствии с тз
-            userDataModel.imageLink = R.drawable.gears;
-            createUserPresenter.saveDateInDateBase(userDataModel, userProperties);
-        });
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                switch (i) {
-                    case (1):
-                        userDataModel.sex = true;
-                        break;
-                    case (2):
-                        userDataModel.sex = false;
-                        break;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                return;
-            }
-        });
-        birthdayText.setOnClickListener(v -> {
-            if ((createUserPresenter.date != null) & (createUserPresenter.myCalendar != null))
-                new DatePickerDialog(CreateUserActivity.this, createUserPresenter.date, createUserPresenter.myCalendar
-                        .get(Calendar.YEAR), createUserPresenter.myCalendar.get(Calendar.MONTH),
-                        createUserPresenter.myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-        });
-
-        sensorNumberView.setOnClickListener(v -> showAddSensorNumberWindow(CreateUserActivity.this));
-
-        secretCodeView.setOnClickListener(v -> showAddSecretCodeWindow(CreateUserActivity.this));
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//                switch (i) {
+//                    case (1):
+//                        userDataModel.sex = true;
+//                        break;
+//                    case (2):
+//                        userDataModel.sex = false;
+//                        break;
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//                return;
+//            }
+//        });
 
 
-    }
-
-    private void showAddSensorNumberWindow(Context c) {
-        final EditText taskEditText = new EditText(c);
-        AlertDialog dialog = new AlertDialog.Builder(c)
-                .setTitle(App.getInstance().getResources().getString(R.string.set_sensor))
-                .setMessage(App.getInstance().getResources().getString(R.string.set_sensor_number))
-                .setView(taskEditText)
-                .setPositiveButton(App.getInstance().getResources().getString(R.string.put_one), (dialog1, which) -> userDataModel.sensorNumber = String.valueOf(taskEditText.getText()))
-                .setNegativeButton(App.getInstance().getResources().getString(R.string.cancel), null)
-                .create();
-        dialog.show();
-    }
-
-    private void showAddSecretCodeWindow(Context c) {
-        final EditText taskEditText = new EditText(c);
-        taskEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
-        AlertDialog dialog = new AlertDialog.Builder(c)
-                .setTitle(App.getInstance().getResources().getString(R.string.check_sensor))
-                .setMessage(App.getInstance().getResources().getString(R.string.set_secret_code))
-                .setView(taskEditText)
-                .setPositiveButton(App.getInstance().getResources().getString(R.string.put_one), (dialog1, which) -> userDataModel.sensorSecretCode = String.valueOf(taskEditText.getText()))
-                .setNegativeButton(App.getInstance().getResources().getString(R.string.cancel), null)
-                .create();
-        dialog.show();
-    }
+//
+//        birthdayText.setOnClickListener(v -> {
+//            if ((createUserPresenter.date != null) & (createUserPresenter.myCalendar != null))
+//                new DatePickerDialog(CreateUserActivity.this, createUserPresenter.date, createUserPresenter.myCalendar
+//                        .get(Calendar.YEAR), createUserPresenter.myCalendar.get(Calendar.MONTH),
+//                        createUserPresenter.myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+//        });
+//
+//        sensorNumberView.setOnClickListener(v -> showAddSensorNumberWindow(CreateUserActivity.this));
+//
+//        secretCodeView.setOnClickListener(v -> showAddSecretCodeWindow(CreateUserActivity.this));
+//
+//
+   }
+//
+//    private void showAddSensorNumberWindow(Context c) {
+//        final EditText taskEditText = new EditText(c);
+//        AlertDialog dialog = new AlertDialog.Builder(c)
+//                .setTitle(App.getInstance().getResources().getString(R.string.set_sensor))
+//                .setMessage(App.getInstance().getResources().getString(R.string.set_sensor_number))
+//                .setView(taskEditText)
+//                .setPositiveButton(App.getInstance().getResources().getString(R.string.put_one), (dialog1, which) -> userDataModel.sensorNumber = String.valueOf(taskEditText.getText()))
+//                .setNegativeButton(App.getInstance().getResources().getString(R.string.cancel), null)
+//                .create();
+//        dialog.show();
+//    }
+//
+//    private void showAddSecretCodeWindow(Context c) {
+//        final EditText taskEditText = new EditText(c);
+//        taskEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
+//        AlertDialog dialog = new AlertDialog.Builder(c)
+//                .setTitle(App.getInstance().getResources().getString(R.string.check_sensor))
+//                .setMessage(App.getInstance().getResources().getString(R.string.set_secret_code))
+//                .setView(taskEditText)
+//                .setPositiveButton(App.getInstance().getResources().getString(R.string.put_one), (dialog1, which) -> userDataModel.sensorSecretCode = String.valueOf(taskEditText.getText()))
+//                .setNegativeButton(App.getInstance().getResources().getString(R.string.cancel), null)
+//                .create();
+//        dialog.show();
+//    }
 
     @Override
     public void setBirthdayText(String text) {
-        birthdayText.setText(text);
-        userDataModel.birthday = text;
+//        birthdayText.setText(text);
+//        userDataModel.birthday = text;
     }
 
     @Override
     public void setSystemText(String str) {
-        Toast toast = Toast.makeText(App.getInstance().getApplicationContext(),
-                str, Toast.LENGTH_SHORT);
-        toast.show();
+//        Toast toast = Toast.makeText(App.getInstance().getApplicationContext(),
+//                str, Toast.LENGTH_SHORT);
+//        toast.show();
     }
 
     @Override
     public void goToUserList() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, MainActivity.class);
+//        startActivity(intent);
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.example.myapplicationisbetter.ui;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
@@ -11,14 +11,17 @@ import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 
 import com.example.myapplicationisbetter.App;
 
+import static android.graphics.Bitmap.Config.ARGB_8888;
+
 public class MyHelper {
 
-    public static boolean isNetworkConnected() {
+    public static final boolean isNetworkConnected() {
         //для работы вставь  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> в манифест
         final ConnectivityManager cm = (ConnectivityManager) App.getInstance().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -43,32 +46,48 @@ public class MyHelper {
         return false;
     }
 
-    public static float dpFromPx(final float px) {
+    public static final float dpFromPx(final float px) {
         return px / App.getInstance().getApplicationContext().getResources().getDisplayMetrics().density;
     }
 
-    public static float pxFromDp(final float dp) {
+    public static final float pxFromDp(final float dp) {
         return dp * App.getInstance().getApplicationContext().getResources().getDisplayMetrics().density;
     }
 
-    public static RoundedBitmapDrawable getCircleBitmap(int resourceLink) {
+    public static final RoundedBitmapDrawable getCircleBitmap(int resourceLink, Float f) {
 
-        Resources res = App.getInstance().getResources();
-        Bitmap src = BitmapFactory.decodeResource(res, resourceLink);
-        RoundedBitmapDrawable dr = RoundedBitmapDrawableFactory.create(res, src);
-        dr.setCornerRadius(Math.max(src.getWidth(), src.getHeight()) / 2.0f);
-
-        return dr;
-    }
-    public static RoundedBitmapDrawable getCircleBitmap(Drawable drawable, Float f) {
         if (f == null) f = 1.0f;
-        BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
-        Bitmap src = null;
-        if (bitmapDrawable!=null) src = bitmapDrawable.getBitmap();
+        Bitmap src = drawableToBitmap(ResourcesCompat.getDrawable(App.getInstance().getResources(), resourceLink, null));
         Resources res = App.getInstance().getResources();
         RoundedBitmapDrawable dr = RoundedBitmapDrawableFactory.create(res, src);
         dr.setCornerRadius( dr.getIntrinsicWidth() /f);
 
         return dr;
+    }
+    public static final RoundedBitmapDrawable getCircleBitmap(Drawable drawable, Float f) {
+        if (f == null) f = 1.0f;
+         BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
+        Bitmap src = null;
+        if (bitmapDrawable!=null) src = bitmapDrawable.getBitmap();
+        Resources res = App.getInstance().getResources();
+         RoundedBitmapDrawable dr = RoundedBitmapDrawableFactory.create(res, src);
+        dr.setCornerRadius( dr.getIntrinsicWidth() /f);
+
+
+        return dr;
+    }
+
+    public static Bitmap drawableToBitmap (Drawable drawable) {
+
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable)drawable).getBitmap();
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
     }
 }

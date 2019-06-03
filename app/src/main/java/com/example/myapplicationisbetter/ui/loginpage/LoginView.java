@@ -11,6 +11,7 @@ public interface LoginView extends MvpView {
 
     void blockButtonReset();
 
-    //--view page control---------
+    void unblockButtonReset();
+
     void goInUserListPage();
 }
