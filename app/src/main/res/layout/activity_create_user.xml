@@ -96,30 +96,29 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="60dp"
                         android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/textView4"
-                            android:layout_width="80dp"
-                            android:layout_height="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
                             android:layout_marginTop="10dp"
                             android:layout_weight="1"
-                            android:text="Дата рождения"
+                            android:text="Введите дату рождения"
                             android:textAlignment="center"
                             android:textColor="@color/black"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <LinearLayout
-                            android:layout_width="130dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_width="170dp"
+                            android:layout_height="wrap_content"
                             android:orientation="vertical">
 
                             <LinearLayout
                                 android:id="@+id/constraintLayout3"
-                                android:layout_width="190dp"
+                                android:layout_width="170dp"
                                 android:layout_height="40dp"
                                 android:orientation="horizontal"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -140,15 +139,15 @@
 
                                 <TextView
                                     android:id="@+id/Birthday"
-                                    android:layout_width="162dp"
-                                    android:layout_height="30dp"
+                                    android:layout_width="140dp"
+                                    android:layout_height="wrap_content"
                                     android:layout_marginTop="8dp"
                                     android:layout_marginBottom="8dp"
                                     android:clickable="true"
                                     android:focusable="false"
-                                    android:hint="Введите дату"
-                                    android:paddingStart="7dp"
-                                    android:textAlignment="textStart"
+                                    android:hint="Дата"
+                                    android:paddingStart="30dp"
+                                    android:textAlignment="center"
                                     android:textColor="@color/darkGray"
                                     android:textSize="18sp"
                                     app:layout_constraintBottom_toBottomOf="parent"
@@ -162,8 +161,9 @@
                             </LinearLayout>
 
                             <ImageView
-                                android:layout_width="222dp"
+                                android:layout_width="160dp"
                                 android:layout_height="2dp"
+                                android:layout_marginStart="5dp"
                                 android:background="@color/darkGray" />
                         </LinearLayout>
 
@@ -171,7 +171,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="60dp"
                         android:layout_marginTop="10dp"
                         android:orientation="horizontal">
 
@@ -180,8 +180,8 @@
                             android:layout_width="80dp"
                             android:layout_height="20dp"
                             android:layout_weight="1"
-                            android:text="Фамилия"
-                            android:textAlignment="center"
+                            android:text="Введите фамилию"
+                            android:textAlignment="textEnd"
                             android:textColor="@color/black"
                             app:layout_constraintBottom_toTopOf="@+id/spinner"
                             app:layout_constraintStart_toStartOf="parent"
@@ -189,10 +189,10 @@
 
                         <EditText
                             android:id="@+id/lastname"
-                            android:layout_width="wrap_content"
-                            android:layout_height="40dp"
+                            android:layout_width="170dp"
+                            android:layout_height="50dp"
                             android:gravity="center"
-                            android:hint="Введите фамилию"
+                            android:hint="Фамилия"
                             android:inputType="text"
                             android:paddingStart="7dp"
                             android:textAlignment="center"
@@ -204,30 +204,6 @@
                             app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <Spinner
-                            android:id="@+id/spinner"
-                            android:layout_width="195dp"
-                            android:layout_height="22dp"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginEnd="8dp"
-                            android:layout_marginBottom="16dp"
-                            android:entries="@array/sex_choice"
-                            android:nestedScrollingEnabled="false"
-                            android:overlapAnchor="false"
-                            android:spinnerMode="dropdown"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.505"
-                            app:layout_constraintStart_toStartOf="parent" />
-
-                    </LinearLayout>
                 </LinearLayout>
 
                 <TextView
@@ -475,7 +451,6 @@
                                     android:layout_gravity="center|left"
                                     android:gravity="center|left"
                                     android:text="Секретный код"
-                                    android:textAlignment="textStart"
                                     android:textColor="@color/black"
                                     android:textSize="18sp"
                                     app:layout_constraintBottom_toBottomOf="parent"

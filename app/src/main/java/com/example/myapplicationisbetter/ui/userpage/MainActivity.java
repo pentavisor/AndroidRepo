@@ -47,6 +47,13 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     @InjectPresenter
     MainPresenter mainPresenter;
 
+
+    @ProvidePresenter
+    MainPresenter provideMainPresenter() {
+        MainPresenter newMainPresenter = new MainPresenter(this,usersRecyclerViewAdapter);
+        return newMainPresenter;
+    }
+
     @BindView(R.id.sportText)
     TextView sportText;
     @BindView(R.id.flowerText)
@@ -69,6 +76,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     @BindView(R.id.triangleSpinner)
     ImageView triangleSpinner;
 
+    @BindView(R.id.newFutures)
+    View newFutures;
+    @BindView(R.id.emptyInform)
+    View emptyInform;
+
 
     private UserDataModel currentUserForDelete;
     private UserProperties currentUserProperties;
@@ -78,26 +90,28 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
 
     private CategoryDropdownMenu menu;
 
+    private UsersRecyclerViewAdapter usersRecyclerViewAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_list_with_users);
         ButterKnife.bind(this);
 
-        String str = "Шаловливая Aнастасия любит горячих парней, чувственных с ноткой азарта она погружается в таких людей как в дорогую вечернюю горячую ванну, в которой хочется согреться еще и еще.... ";
-        users.add(new UserDataModel(BindingAdapters.ADD_BUTTON_ID, "asdsd", "", "", "", true, "", "", R.drawable.circle_add, "", 0));
-        users.add(new UserDataModel(-2, "Анастасия", "Шаловливая", "asdasdasd", "", false, "", "", R.drawable.mustache, "", mainPresenter.TEST_USER_PROFILE_DATA));
-
-        binding.setMyAdapter(new UsersRecyclerViewAdapter(users,this, mainPresenter));
-
+        usersRecyclerViewAdapter = new UsersRecyclerViewAdapter(users, this, mainPresenter);
+        binding.setMyAdapter(usersRecyclerViewAdapter);
+        mainPresenter.userListInit();
         mySpinnerButton.setBackgroundResource(R.drawable.circle_spinner_angle);
-        mySpinnerButton.setOnClickListener(x->{
+
+
+        mySpinnerButton.setOnClickListener(x -> {
             showCategoryMenu(x);
             triangleSpinner.setRotation(180);
         });
 
 
     }
+
 
 
     public void goUpdateUserPage(UserDataModel userDataModel, UserProperties userProperties) {
@@ -107,16 +121,20 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         startActivity(intent);
     }
 
-    private void showCategoryMenu(View button){
+    private void showCategoryMenu(View button) {
         menu = new CategoryDropdownMenu(this);
-        menu.setWidth((int)(MyHelper.pxFromDp(140.0f)));
-        menu.showAsDropDown(button,(int)(MyHelper.pxFromDp(-60.0f)),0);
+        menu.setWidth((int) (MyHelper.pxFromDp(140.0f)));
+        menu.showAsDropDown(button, (int) (MyHelper.pxFromDp(-60.0f)), 0);
         menu.setCategorySelectedListener(new CategoryDropdownAdapter.CategorySelectedListener() {
             @Override
             public void onCategorySelected(int position, Category category) {
                 triangleSpinner.setRotation(0);
                 menu.dismiss();
-                Toast.makeText(MainActivity.this, "Your favourite programming language : "+ category.category, Toast.LENGTH_SHORT).show();
+                switch ((int)category.id){
+                    case (0):/*mainPresenter.deleteUser2(users);*/ /*change item*/break;
+                    case(1):mainPresenter.deleteUser(users);/*delete item*/break;
+                }
+                //Toast.makeText(MainActivity.this, "Your favourite programming language : " + category.category, Toast.LENGTH_SHORT).show();
             }
         });
         menu.setWindowClosedListener(new CategoryDropdownMenu.CloseWindowHandler() {
@@ -124,10 +142,30 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
             public void onWindowClosed() {
                 triangleSpinner.setRotation(0);
             }
-        } );
+        });
     }
 
 
+    @Override
+    public void setUserList(List<UserDataModel> userDataModel) {
+        users.clear();
+        for(UserDataModel udmDownloaded : userDataModel){
+           users.add(udmDownloaded);
+        }
+
+        usersRecyclerViewAdapter.notifyDataSetChanged();
+
+        if(users.size()>=2){
+            mainPresenter.setTextInFeature(users.get(1));
+            newFutures.setVisibility(View.VISIBLE);
+            emptyInform.setVisibility(View.INVISIBLE);
+        }else{
+            newFutures.setVisibility(View.INVISIBLE);
+            emptyInform.setVisibility(View.VISIBLE);
+        }
+
+
+    }
 
     @Override
     public void goCreateUserPage() {
@@ -187,16 +225,18 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
 
     @Override
     protected void onResume() {
-        binding.setMyAdapter(new UsersRecyclerViewAdapter(users,this, mainPresenter));
-        mySpinnerButton.setOnClickListener(x->{
+        binding.setMyAdapter(usersRecyclerViewAdapter);
+        mySpinnerButton.setOnClickListener(x -> {
             showCategoryMenu(x);
             triangleSpinner.setRotation(180);
         });
+
         super.onResume();
 
     }
+
     @Override
-    protected void onStop(){
+    protected void onStop() {
         binding.setMyAdapter(null);
         menu = null;
         super.onStop();

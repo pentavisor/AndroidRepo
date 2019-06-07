@@ -7,8 +7,8 @@ import android.arch.persistence.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(tableName = "user_list",indices = {@Index(value = {"future_id"},unique = true)})
-public class UserDataModel implements Serializable {
+@Entity(tableName = "user_list", indices = {@Index(value = {"future_id"}, unique = true)})
+public class UserDataModel implements Serializable,Cloneable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
@@ -35,9 +35,15 @@ public class UserDataModel implements Serializable {
     @ColumnInfo(name = "sensor_secret_code")
     public String sensorSecretCode;
 
+    /*
+        Image from resource
+     */
     @ColumnInfo(name = "imageLink")
     public int imageLink;
 
+    /*
+       Image from Internet
+    */
     @ColumnInfo(name = "imageName")
     public String imageName;
 
@@ -45,9 +51,7 @@ public class UserDataModel implements Serializable {
     public int future_id;
 
 
-
-
-    public UserDataModel(int id, String firstName, String lastName, String googleMapLink, String birthday, Boolean sex, String sensorNumber, String sensorSecretCode, int imageLink,String imageName, int future_id ) {
+    public UserDataModel(int id, String firstName, String lastName, String googleMapLink, String birthday, Boolean sex, String sensorNumber, String sensorSecretCode, int imageLink, String imageName, int future_id) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -59,5 +63,9 @@ public class UserDataModel implements Serializable {
         this.imageLink = imageLink;
         this.imageName = imageName;
         this.future_id = future_id;
+    }
+
+    public UserDataModel clone() throws CloneNotSupportedException {
+        return (UserDataModel)super.clone();
     }
 }

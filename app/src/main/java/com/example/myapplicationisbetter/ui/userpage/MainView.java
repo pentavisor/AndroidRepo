@@ -9,6 +9,7 @@ import com.example.myapplicationisbetter.data.models.UserProperties;
 import java.util.List;
 
 public interface MainView extends MvpView {
+    void setUserList(List<UserDataModel> userDataModelList);
     void goCreateUserPage();
     void setText(UserDataModel userDataModel, UserProperties userProperties);
 }

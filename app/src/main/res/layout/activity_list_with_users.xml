@@ -57,8 +57,33 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" >
 
+        </android.support.v7.widget.RecyclerView>
+
+
+        <LinearLayout
+            android:id="@+id/emptyInform"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="175dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/circle_form_angle"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:visibility="invisible">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="173dp"
+                android:layout_height="37dp"
+                android:gravity="center"
+                android:text="Создайте нового пользователя"
+                android:textAlignment="center" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/newFutures"
@@ -71,6 +96,7 @@
             android:background="@drawable/circle_form_angle_v2"
             android:orientation="vertical"
             android:padding="10dp"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -224,6 +250,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
@@ -245,6 +272,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="3dp"
+                    android:gravity="center"
                     android:text="sportText"
                     android:textAlignment="center"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -257,6 +285,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="3dp"
+                    android:gravity="center"
                     android:text="crazyText"
                     android:textAlignment="center"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -271,6 +300,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="3dp"
+                    android:gravity="center"
                     android:text="flowerText"
                     android:textAlignment="center"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -283,6 +313,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="3dp"
+                    android:gravity="center"
                     android:text="mashroomsText"
                     android:textAlignment="center"
                     app:layout_constraintEnd_toEndOf="parent"

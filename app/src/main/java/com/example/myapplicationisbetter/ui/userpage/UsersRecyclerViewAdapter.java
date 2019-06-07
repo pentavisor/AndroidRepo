@@ -3,6 +3,7 @@ package com.example.myapplicationisbetter.ui.userpage;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -14,6 +15,10 @@ import com.example.myapplicationisbetter.BR;
 import com.example.myapplicationisbetter.R;
 import com.example.myapplicationisbetter.data.models.UserDataModel;
 import com.example.myapplicationisbetter.databinding.ListItemBinding;
+import com.example.myapplicationisbetter.ui.MyHelper;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -31,25 +36,73 @@ public class UsersRecyclerViewAdapter extends RecyclerView.Adapter<UsersRecycler
         context = ctx;
         mainPresenter = presenter;
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
     @Override
     public UsersRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-         ListItemBinding binding = DataBindingUtil.inflate(
+
+        ListItemBinding binding = DataBindingUtil.inflate(
                 LayoutInflater.from(parent.getContext()),
                 R.layout.list_item, parent, false);
+        if (viewType == 0) {
+            binding.imagelittle.setVisibility(INVISIBLE);
+            binding.imagemask.setVisibility(INVISIBLE);
+            binding.imagemasklittle.setVisibility(INVISIBLE);
+        }
 
         return new ViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+
         UserDataModel dataModel = dataModelList.get(position);
         holder.bind(dataModel);
         holder.listItemBinding.setItemClickListener(this);
-        if(dataModel.id==BindingAdapters.ADD_BUTTON_ID){
-            holder.listItemBinding.imagelittle.setVisibility(INVISIBLE);
-            holder.listItemBinding.imagemask.setVisibility(INVISIBLE);
-            holder.listItemBinding.imagemasklittle.setVisibility(INVISIBLE);
+
+        if (dataModel.id != BindingAdapters.ADD_BUTTON_ID){
+            if (dataModel.imageName.equals("")) {
+                holder.listItemBinding.imagemain.setImageDrawable(MyHelper.getCircleBitmap(dataModel.imageLink, 0.8f));
+            } else {
+                Picasso.get()
+                        .load(dataModel.imageName)
+                        .networkPolicy(NetworkPolicy.OFFLINE)
+                        .into(holder.listItemBinding.imagemain, new Callback() {
+                            @Override
+                            public void onSuccess() {
+                                holder.listItemBinding.imagemain.setImageDrawable(MyHelper.getCircleBitmap(holder.listItemBinding.imagemain.getDrawable(), 0.8f));
+                            }
+
+                            @Override
+                            public void onError(Exception e) {
+                                //Try again online if cache failed
+                                Picasso.get()
+                                        .load(dataModel.imageName)
+                                        .error(R.drawable.mustache)
+                                        .into(holder.listItemBinding.imagemain, new Callback() {
+                                            @Override
+                                            public void onSuccess() {
+                                                holder.listItemBinding.imagemain.setImageDrawable(MyHelper.getCircleBitmap(holder.listItemBinding.imagemain.getDrawable(), 0.8f));
+                                            }
+
+                                            @Override
+                                            public void onError(Exception e) {
+                                                Log.v("Picasso", "Could not fetch image");
+                                            }
+                                        });
+                            }
+                        });
+            }
         }
+
     }
 
 
@@ -75,7 +128,7 @@ public class UsersRecyclerViewAdapter extends RecyclerView.Adapter<UsersRecycler
 
     @Override
     public void cardClicked(UserDataModel model) {
-        if(mainPresenter!=null) {
+        if (mainPresenter != null) {
             switch (model.id) {
                 case (BindingAdapters.ADD_BUTTON_ID):
                     mainPresenter.goToCreateUserPage();
