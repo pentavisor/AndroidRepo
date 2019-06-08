@@ -270,7 +270,9 @@ public class UpdateActivity extends MvpAppCompatActivity implements UpdateView {
             DisplayMetrics metrics = new DisplayMetrics();
             getWindowManager().getDefaultDisplay().getMetrics(metrics);
             CropImage.activity(photoURI).setOutputUri(photoURI)
-            .setFixAspectRatio(true)
+                    .setFixAspectRatio(true)
+                    .setOutputCompressQuality(20)
+                    .setRequestedSize(500, 500)
                     .start(this);
         }
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
