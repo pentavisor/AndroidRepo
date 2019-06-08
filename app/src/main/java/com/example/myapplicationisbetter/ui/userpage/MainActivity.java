@@ -98,7 +98,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_list_with_users);
         ButterKnife.bind(this);
 
-        usersRecyclerViewAdapter = new UsersRecyclerViewAdapter(users, this, mainPresenter);
+        usersRecyclerViewAdapter = new UsersRecyclerViewAdapter(users, mainPresenter);
         binding.setMyAdapter(usersRecyclerViewAdapter);
         mainPresenter.userListInit();
 

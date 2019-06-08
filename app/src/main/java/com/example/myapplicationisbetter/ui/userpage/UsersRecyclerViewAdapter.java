@@ -3,22 +3,15 @@ package com.example.myapplicationisbetter.ui.userpage;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.arellomobile.mvp.MvpDelegate;
-import com.arellomobile.mvp.MvpFacade;
-import com.arellomobile.mvp.MvpPresenter;
-import com.arellomobile.mvp.presenter.InjectPresenter;
+
 import com.example.myapplicationisbetter.BR;
 import com.example.myapplicationisbetter.R;
 import com.example.myapplicationisbetter.data.models.UserDataModel;
 import com.example.myapplicationisbetter.databinding.ListItemBinding;
-import com.example.myapplicationisbetter.ui.MyHelper;
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.List;
 
@@ -28,12 +21,10 @@ import static android.view.View.INVISIBLE;
 public class UsersRecyclerViewAdapter extends RecyclerView.Adapter<UsersRecyclerViewAdapter.ViewHolder> implements CustomClickListenerRecyclerView {
 
     private List<UserDataModel> dataModelList;
-    private Context context;
     private MainPresenter mainPresenter;
 
-    public UsersRecyclerViewAdapter(List<UserDataModel> dataModelList, Context ctx, MainPresenter presenter) {
+    public UsersRecyclerViewAdapter(List<UserDataModel> dataModelList, MainPresenter presenter) {
         this.dataModelList = dataModelList;
-        context = ctx;
         mainPresenter = presenter;
     }
 

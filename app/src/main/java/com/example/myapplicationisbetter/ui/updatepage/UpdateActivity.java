@@ -5,13 +5,16 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.text.method.PasswordTransformationMethod;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -32,6 +35,7 @@ import com.example.myapplicationisbetter.ui.userpage.MainActivity;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
+import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -84,8 +88,7 @@ public class UpdateActivity extends MvpAppCompatActivity implements UpdateView {
 
     UserDataModel userDataModel;
     UserProperties userProperties;
-   // String currentPhotoPath;
- //   Uri photoURI;
+    Uri photoURI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +100,6 @@ public class UpdateActivity extends MvpAppCompatActivity implements UpdateView {
         Bundle arguments = getIntent().getExtras();
         userDataModel = (UserDataModel) arguments.get(App.getInstance().getResources().getString(R.string.user_data_model));
         userProperties = (UserProperties) arguments.get(App.getInstance().getResources().getString(R.string.user_properties));
-        //arguments.clear();
         updatePresenter.calendarInit();
 
         sportSw.setChecked(userProperties.sport);
@@ -122,7 +124,7 @@ public class UpdateActivity extends MvpAppCompatActivity implements UpdateView {
         mushroomsSw.setOnCheckedChangeListener((c, b) -> userProperties.mushrooms = b);
         crazySw.setOnCheckedChangeListener((c, b) -> userProperties.funnyCat = b);
 
-        buttonUserImage.setOnClickListener(x->dispatchTakePictureIntent());
+        buttonUserImage.setOnClickListener(x -> dispatchTakePictureIntent());
 
         sensorNumberView.setOnClickListener(v -> showAddSensorNumberWindow(UpdateActivity.this));
 
@@ -148,7 +150,7 @@ public class UpdateActivity extends MvpAppCompatActivity implements UpdateView {
         });
     }
 
-    private void insertImageFromView(){
+    private void insertImageFromView() {
         if (userDataModel.imageName.equals("")) {
             userImage.setImageResource(userDataModel.imageLink);
         } else {
@@ -235,15 +237,16 @@ public class UpdateActivity extends MvpAppCompatActivity implements UpdateView {
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
+                photoURI = FileProvider.getUriForFile(this,
                         "com.example.android.fileprovider",
                         photoFile);
-                //userDataModel.imageName = photoURI.toString();
+                userDataModel.imageName = photoURI.toString();
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }
     }
+
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -255,28 +258,29 @@ public class UpdateActivity extends MvpAppCompatActivity implements UpdateView {
                 storageDir      /* directory */
         );
 
-        // Save a file: path for use with ACTION_VIEW intents
-        userDataModel.imageName = "file://" + image.getAbsolutePath();
         return image;
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            DisplayMetrics metrics = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(metrics);
+            CropImage.activity(photoURI).setOutputUri(photoURI)
+            .setFixAspectRatio(true)
+                    .start(this);
+        }
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
 
-//            Bitmap bitmap;
-//            try {
-//                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), photoURI);
-//                userImage.setImageBitmap(bitmap);
-//
-//
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
+
             insertImageFromView();
         }
 
