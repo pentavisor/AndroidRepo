@@ -101,7 +101,6 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         usersRecyclerViewAdapter = new UsersRecyclerViewAdapter(users, this, mainPresenter);
         binding.setMyAdapter(usersRecyclerViewAdapter);
         mainPresenter.userListInit();
-        mySpinnerButton.setBackgroundResource(R.drawable.circle_spinner_angle);
 
 
         mySpinnerButton.setOnClickListener(x -> {
@@ -114,11 +113,14 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
 
 
 
-    public void goUpdateUserPage(UserDataModel userDataModel, UserProperties userProperties) {
-        Intent intent = new Intent(this, UpdateActivity.class);
-        intent.putExtra(App.getInstance().getResources().getString(R.string.user_data_model), userDataModel);
-        intent.putExtra(App.getInstance().getResources().getString(R.string.user_properties), userProperties);
-        startActivity(intent);
+    public void goUpdateUserPage() {
+        if(currentUserForDelete!=null | currentUserProperties!=null) {
+            Intent intent = new Intent(this, UpdateActivity.class);
+            intent.putExtra(App.getInstance().getResources().getString(R.string.user_data_model), currentUserForDelete);
+            intent.putExtra(App.getInstance().getResources().getString(R.string.user_properties), currentUserProperties);
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(intent);
+        }
     }
 
     private void showCategoryMenu(View button) {
@@ -131,7 +133,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
                 triangleSpinner.setRotation(0);
                 menu.dismiss();
                 switch ((int)category.id){
-                    case (0):/*mainPresenter.deleteUser2(users);*/ /*change item*/break;
+                    case (0):goUpdateUserPage(); /*change item*/break;
                     case(1):mainPresenter.deleteUser(users);/*delete item*/break;
                 }
                 //Toast.makeText(MainActivity.this, "Your favourite programming language : " + category.category, Toast.LENGTH_SHORT).show();
@@ -170,6 +172,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     @Override
     public void goCreateUserPage() {
         Intent intent = new Intent(this, CreateUserActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 
@@ -243,8 +246,4 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     }
 
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 }

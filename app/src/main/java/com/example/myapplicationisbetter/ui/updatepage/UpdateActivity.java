@@ -4,10 +4,17 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -20,14 +27,27 @@ import com.example.myapplicationisbetter.App;
 import com.example.myapplicationisbetter.R;
 import com.example.myapplicationisbetter.data.models.UserDataModel;
 import com.example.myapplicationisbetter.data.models.UserProperties;
+import com.example.myapplicationisbetter.ui.MyHelper;
 import com.example.myapplicationisbetter.ui.userpage.MainActivity;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URI;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class UpdateActivity extends MvpAppCompatActivity implements UpdateView {
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+    static final int REQUEST_TAKE_PHOTO = 1;
 
     @InjectPresenter
     UpdatePresenter updatePresenter;
@@ -36,12 +56,21 @@ public class UpdateActivity extends MvpAppCompatActivity implements UpdateView {
     RippleView secretCodeView;
     @BindView(R.id.sensor_number)
     RippleView sensorNumberView;
+
+    @BindView(R.id.UserImage)
+    ImageView userImage;
+    @BindView(R.id.ButtonUserImage)
+    Button buttonUserImage;
+
     @BindView(R.id.lastname)
     EditText lastName;
-    @BindView(R.id.birthday)
+    @BindView(R.id.firstName)
+    EditText firstName;
+    @BindView(R.id.Birthday)
     TextView birthday;
-    @BindView(R.id.spinner)
+    @BindView(R.id.sexChoise)
     Spinner spinner;
+
     @BindView(R.id.sportSwith)
     Switch sportSw;
     @BindView(R.id.flowerSwith)
@@ -55,6 +84,8 @@ public class UpdateActivity extends MvpAppCompatActivity implements UpdateView {
 
     UserDataModel userDataModel;
     UserProperties userProperties;
+   // String currentPhotoPath;
+ //   Uri photoURI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +97,7 @@ public class UpdateActivity extends MvpAppCompatActivity implements UpdateView {
         Bundle arguments = getIntent().getExtras();
         userDataModel = (UserDataModel) arguments.get(App.getInstance().getResources().getString(R.string.user_data_model));
         userProperties = (UserProperties) arguments.get(App.getInstance().getResources().getString(R.string.user_properties));
-        arguments.clear();
+        //arguments.clear();
         updatePresenter.calendarInit();
 
         sportSw.setChecked(userProperties.sport);
@@ -74,12 +105,15 @@ public class UpdateActivity extends MvpAppCompatActivity implements UpdateView {
         mushroomsSw.setChecked(userProperties.mushrooms);
         crazySw.setChecked(userProperties.funnyCat);
 
+        insertImageFromView();
+
+        firstName.setText(userDataModel.firstName);
         lastName.setText(userDataModel.lastName);
         birthday.setText(userDataModel.birthday);
         if (userDataModel.sex) {
-            spinner.setSelection(1);
+            spinner.setSelection(0);
         } else {
-            spinner.setSelection(2);
+            spinner.setSelection(1);
         }
 
 
@@ -87,6 +121,8 @@ public class UpdateActivity extends MvpAppCompatActivity implements UpdateView {
         flowersSw.setOnCheckedChangeListener((c, b) -> userProperties.flowers = b);
         mushroomsSw.setOnCheckedChangeListener((c, b) -> userProperties.mushrooms = b);
         crazySw.setOnCheckedChangeListener((c, b) -> userProperties.funnyCat = b);
+
+        buttonUserImage.setOnClickListener(x->dispatchTakePictureIntent());
 
         sensorNumberView.setOnClickListener(v -> showAddSensorNumberWindow(UpdateActivity.this));
 
@@ -102,13 +138,49 @@ public class UpdateActivity extends MvpAppCompatActivity implements UpdateView {
         startButton.setOnClickListener((x) -> {
             userDataModel.birthday = birthday.getText().toString();
             userDataModel.lastName = lastName.getText().toString();
-            if (spinner.getSelectedItemPosition() == 1) {
+            userDataModel.firstName = firstName.getText().toString();
+            if (spinner.getSelectedItemPosition() == 0) {
                 userDataModel.sex = true;
             } else {
                 userDataModel.sex = false;
             }
-            updatePresenter.sendNewUserInDataBase(userDataModel, userProperties);
+            updatePresenter.updateUserInDataBase(userDataModel, userProperties);
         });
+    }
+
+    private void insertImageFromView(){
+        if (userDataModel.imageName.equals("")) {
+            userImage.setImageResource(userDataModel.imageLink);
+        } else {
+            Picasso.get()
+                    .load(userDataModel.imageName)
+                    .networkPolicy(NetworkPolicy.OFFLINE)
+                    .into(userImage, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            userImage.setImageDrawable(MyHelper.getCircleBitmap(userImage.getDrawable(), 3.0f));
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+                            //Try again online if cache failed
+                            Picasso.get()
+                                    .load(userDataModel.imageName)
+                                    .error(R.drawable.mustache)
+                                    .into(userImage, new Callback() {
+                                        @Override
+                                        public void onSuccess() {
+                                            userImage.setImageDrawable(MyHelper.getCircleBitmap(userImage.getDrawable(), 3.0f));
+                                        }
+
+                                        @Override
+                                        public void onError(Exception e) {
+                                            Log.v("Picasso", "Could not fetch image");
+                                        }
+                                    });
+                        }
+                    });
+        }
     }
 
     private void showAddSensorNumberWindow(Context c) {
@@ -145,7 +217,69 @@ public class UpdateActivity extends MvpAppCompatActivity implements UpdateView {
     @Override
     public void goToUserList() {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
+    }
+
+    private void dispatchTakePictureIntent() {
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "com.example.android.fileprovider",
+                        photoFile);
+                //userDataModel.imageName = photoURI.toString();
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
+        }
+    }
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",   /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        userDataModel.imageName = "file://" + image.getAbsolutePath();
+        return image;
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+
+//            Bitmap bitmap;
+//            try {
+//                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), photoURI);
+//                userImage.setImageBitmap(bitmap);
+//
+//
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+            insertImageFromView();
+        }
+
     }
 
     @Override

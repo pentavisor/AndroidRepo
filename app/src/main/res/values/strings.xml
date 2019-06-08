@@ -48,7 +48,6 @@
     <string name="fustLogin">FastLogin</string>
 
     <string-array name="sex_choice">
-        <item>Выберите пол</item>
         <item>Мужской</item>
         <item>Женский</item>
     </string-array>

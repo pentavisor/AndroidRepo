@@ -24,7 +24,7 @@ public class BindingAdapters {
             if (udm.id == ADD_BUTTON_ID) {
                 photoImage.setImageResource(udm.imageLink);
             } else {
-                photoImage.setImageDrawable(MyHelper.getCircleBitmap(udm.imageLink, 3.3f));
+                photoImage.setImageDrawable(MyHelper.getCircleBitmap(udm.imageLink, 0.8f));
 
             }
         } else {
@@ -34,7 +34,7 @@ public class BindingAdapters {
                     .into(photoImage, new Callback() {
                         @Override
                         public void onSuccess() {
-                            photoImage.setImageDrawable(MyHelper.getCircleBitmap(photoImage.getDrawable(), 3.3f));
+                            photoImage.setImageDrawable(MyHelper.getCircleBitmap(photoImage.getDrawable(), 0.8f));
                         }
 
                         @Override
@@ -46,7 +46,7 @@ public class BindingAdapters {
                                     .into(photoImage, new Callback() {
                                         @Override
                                         public void onSuccess() {
-                                            photoImage.setImageDrawable(MyHelper.getCircleBitmap(photoImage.getDrawable(), 3.3f));
+                                            photoImage.setImageDrawable(MyHelper.getCircleBitmap(photoImage.getDrawable(), 0.8f));
                                         }
 
                                         @Override

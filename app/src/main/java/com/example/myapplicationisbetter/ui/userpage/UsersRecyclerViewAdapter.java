@@ -68,41 +68,6 @@ public class UsersRecyclerViewAdapter extends RecyclerView.Adapter<UsersRecycler
         holder.bind(dataModel);
         holder.listItemBinding.setItemClickListener(this);
 
-        if (dataModel.id != BindingAdapters.ADD_BUTTON_ID){
-            if (dataModel.imageName.equals("")) {
-                holder.listItemBinding.imagemain.setImageDrawable(MyHelper.getCircleBitmap(dataModel.imageLink, 0.8f));
-            } else {
-                Picasso.get()
-                        .load(dataModel.imageName)
-                        .networkPolicy(NetworkPolicy.OFFLINE)
-                        .into(holder.listItemBinding.imagemain, new Callback() {
-                            @Override
-                            public void onSuccess() {
-                                holder.listItemBinding.imagemain.setImageDrawable(MyHelper.getCircleBitmap(holder.listItemBinding.imagemain.getDrawable(), 0.8f));
-                            }
-
-                            @Override
-                            public void onError(Exception e) {
-                                //Try again online if cache failed
-                                Picasso.get()
-                                        .load(dataModel.imageName)
-                                        .error(R.drawable.mustache)
-                                        .into(holder.listItemBinding.imagemain, new Callback() {
-                                            @Override
-                                            public void onSuccess() {
-                                                holder.listItemBinding.imagemain.setImageDrawable(MyHelper.getCircleBitmap(holder.listItemBinding.imagemain.getDrawable(), 0.8f));
-                                            }
-
-                                            @Override
-                                            public void onError(Exception e) {
-                                                Log.v("Picasso", "Could not fetch image");
-                                            }
-                                        });
-                            }
-                        });
-            }
-        }
-
     }
 
 

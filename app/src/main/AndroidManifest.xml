@@ -3,6 +3,9 @@
     package="com.example.myapplicationisbetter">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"  android:maxSdkVersion="18" />
+
 
     <application
         android:name=".App"
@@ -13,6 +16,15 @@
         android:hardwareAccelerated="false"
         android:largeHeap="true"
         >
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.android.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
         <activity
             android:name=".ui.loginpage.LoginActivity"
             android:screenOrientation="portrait"
@@ -35,7 +47,6 @@
         <activity
             android:name=".ui.usercreatepage.CreateUserActivity"
             android:screenOrientation="portrait"
-            android:noHistory="true"
             >
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
@@ -44,7 +55,6 @@
         <activity
             android:name=".ui.updatepage.UpdateActivity"
             android:screenOrientation="portrait"
-            android:noHistory="true"
             >
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
