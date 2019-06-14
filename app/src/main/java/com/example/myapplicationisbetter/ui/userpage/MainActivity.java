@@ -12,13 +12,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.arellomobile.mvp.presenter.PresenterType;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.example.myapplicationisbetter.App;
 import com.example.myapplicationisbetter.R;
@@ -26,6 +24,7 @@ import com.example.myapplicationisbetter.data.models.UserDataModel;
 import com.example.myapplicationisbetter.data.models.UserProperties;
 import com.example.myapplicationisbetter.databinding.ActivityListWithUsersBinding;
 import com.example.myapplicationisbetter.ui.MyHelper;
+import com.example.myapplicationisbetter.ui.mappoint.MapActivity;
 import com.example.myapplicationisbetter.ui.updatepage.UpdateActivity;
 import com.example.myapplicationisbetter.ui.usercreatepage.CreateUserActivity;
 import com.example.myapplicationisbetter.ui.userpage.CastomSpinner.Category;
@@ -81,6 +80,9 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     @BindView(R.id.emptyInform)
     View emptyInform;
 
+    @BindView(R.id.mapButton)
+    Button mapButton;
+
 
     private UserDataModel currentUserForDelete;
     private UserProperties currentUserProperties;
@@ -106,6 +108,17 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         mySpinnerButton.setOnClickListener(x -> {
             showCategoryMenu(x);
             triangleSpinner.setRotation(180);
+        });
+
+        mapButton.setOnClickListener(x -> {
+            if (currentUserForDelete.id ==MainPresenter.TEST_USER_ID){
+                Toast.makeText(MainActivity.this, "У тестового пользователя нет координат! Создайте нового! ", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Intent intent = new Intent(this, MapActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            intent.putExtra(App.getInstance().getResources().getString(R.string.user_data_model), currentUserForDelete);
+            startActivity(intent);
         });
 
 

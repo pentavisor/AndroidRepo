@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-feature android:name="android.hardware.camera" android:required="true" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"  android:maxSdkVersion="18" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 
     <application
@@ -28,7 +29,6 @@
         <activity
             android:name=".ui.loginpage.LoginActivity"
             android:screenOrientation="portrait"
-            android:noHistory="true"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"></action>
@@ -63,6 +63,10 @@
 
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"/>
+
+        <activity android:name=".ui.mappoint.MapActivity"
+            android:theme="@style/Base.Theme.AppCompat.Light"/>
+
 
     </application>
 

@@ -82,4 +82,9 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     //---cropper(cutImage)--
     implementation  'com.theartofdev.edmodo:android-image-cropper:2.5.0'
+    //---mapbox---
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:8.0.1'
+    //---maobox localaze--
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-localization-v8:0.10.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-markerview-v8:0.3.0'
 }

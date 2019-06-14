@@ -1,6 +1,5 @@
 package com.example.myapplicationisbetter.ui.loginpage;
 
-import android.content.Context;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.InjectViewState;
@@ -33,6 +32,7 @@ public class LoginPresenter extends MvpPresenter<LoginView> {
                             public void onSuccess(LoginAndPassModel loginAndPassModel) {
                                 firstQueryLoginAndPassModel = new LoginAndPassModel(loginAndPassModel.login, loginAndPassModel.password);
                                 setMessageInText(loginAndPassModel);
+                                this.dispose();
                             }
 
                             @Override
@@ -44,8 +44,10 @@ public class LoginPresenter extends MvpPresenter<LoginView> {
                             public void onComplete() {
                                 firstQueryLoginAndPassModel = null;
                                 setMessageInText(firstQueryLoginAndPassModel);
+                                this.dispose();
                             }
                         });
+
     }
 
     public void btnSet() {

@@ -36,8 +36,8 @@ import static android.content.Context.MODE_PRIVATE;
 public class MainPresenter extends MvpPresenter<MainView> {
 
     public static final int TEST_USER_PROFILE_DATA = 0;
-    private static final String TEST_USER_VISIBLE = "test_user";
-    private static final int TEST_USER_ID = -2;
+    public static final String TEST_USER_VISIBLE = "test_user";
+    public static final int TEST_USER_ID = -2;
 
     String str = "Шаловливая Aнастасия любит горячих парней, чувственных с ноткой азарта она погружается в таких людей как в дорогую вечернюю горячую ванну, в которой хочется согреться еще и еще.... ";
     UserDataModel firstUdm = new UserDataModel(TEST_USER_ID, "Анастасия", "Шаловливая", "asdasdasd", "", false, "", "", R.drawable.mustache, "", TEST_USER_PROFILE_DATA);
