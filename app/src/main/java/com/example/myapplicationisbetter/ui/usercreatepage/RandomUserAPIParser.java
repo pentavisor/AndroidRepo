@@ -23,7 +23,6 @@ public class RandomUserAPIParser {
         String pictureSegment = null;
         String sexSegment = null;
         Boolean sex = true;
-        String mapSegment = null;
 
         final int bufferSize = 1024;
         final char[] buffer = new char[bufferSize];
@@ -52,7 +51,6 @@ public class RandomUserAPIParser {
                 nameSegment =  array.getJSONObject(i).getJSONObject("name").getString("first");
                 pictureSegment = array.getJSONObject(i).getJSONObject("picture").getString("large");
                 sexSegment = array.getJSONObject(i).getJSONObject("name").getString("title");
-                mapSegment = array.getJSONObject(i).getJSONObject("location").getJSONObject("coordinates").getString("latitude") + ":"+array.getJSONObject(i).getJSONObject("location").getJSONObject("coordinates").getString("longitude");
             }
             switch (sexSegment){
                 case("miss"):sex = false;break;
@@ -60,7 +58,7 @@ public class RandomUserAPIParser {
                 case("mrs"):sex = false;break;
                 default:sex = true;
             }
-            return new UserInetInform(nameSegment,pictureSegment,sex,mapSegment);
+            return new UserInetInform(nameSegment,pictureSegment,sex);
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -24,7 +24,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/imagemainbubble"
+                android:id="@+id/imagemain"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_centerInParent="true"
@@ -43,8 +43,8 @@
                 android:id="@+id/imagelittle"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_alignEnd="@+id/imagemainbubble"
-                android:layout_alignBottom="@+id/imagemainbubble"
+                android:layout_alignEnd="@+id/imagemain"
+                android:layout_alignBottom="@+id/imagemain"
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="6dp"
                 app:setIndicator="@{model}" />
@@ -53,8 +53,8 @@
                 android:id="@+id/imagemasklittle"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_alignEnd="@+id/imagemainbubble"
-                android:layout_alignBottom="@+id/imagemainbubble"
+                android:layout_alignEnd="@+id/imagemain"
+                android:layout_alignBottom="@+id/imagemain"
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="6dp"
                 android:background="@drawable/circle_little" />

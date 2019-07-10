@@ -5,7 +5,6 @@ package com.example.myapplicationisbetter.data.models;
         private String firstNameInet;
         private String photoInet;
         private Boolean sex;
-        private String mapCoordinates;
 
         public String getFirstNameInet() {
             return firstNameInet;
@@ -31,20 +30,9 @@ package com.example.myapplicationisbetter.data.models;
             this.sex = sex;
         }
 
-        public String getMapCoordinates() {
-            return mapCoordinates;
-        }
-
-        public void setMapCoordinates(String mapCoordinates) {
-            this.mapCoordinates = mapCoordinates;
-        }
-
-        public UserInetInform(String firstNameInet, String photoInet, Boolean sex, String mapCoordinates) {
+        public UserInetInform(String firstNameInet, String photoInet, Boolean sex) {
             this.firstNameInet = firstNameInet;
             this.photoInet = photoInet;
             this.sex = sex;
-            this.mapCoordinates = mapCoordinates;
         }
-
-
     }

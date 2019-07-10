@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rellay">
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/linearLayout3"
@@ -35,123 +34,122 @@
                 android:textSize="25sp" />
         </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="60dp"
-            android:gravity="center_vertical">
 
-            <EditText
-                android:id="@+id/Login"
-                android:layout_width="250dp"
-                android:layout_height="40dp"
-                android:layout_alignParentStart="false"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="false"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:layout_marginTop="49dp"
-                android:autofillHints=""
-                android:background="@drawable/circle_form_angle_v2"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="@string/login_text_input"
-                android:inputType="textPersonName"
-                android:textAlignment="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:targetApi="o" />
+        <TextView
+            android:id="@+id/SysMess"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buttonInput"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="48dp"
+            android:gravity="center"
+            android:scrollbars="vertical"
+            android:text="@string/system_message"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_dark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buttonInput"
+            app:layout_goneMarginLeft="10dp"
+            app:layout_goneMarginRight="10dp" />
 
-            <EditText
-                android:id="@+id/Password"
-                android:layout_width="250dp"
-                android:layout_height="40dp"
-                android:layout_below="@+id/Login"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:autofillHints=""
-                android:background="@drawable/circle_form_angle_v2"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="@string/pass_text_input"
-                android:inputType="textPassword"
-                android:textAlignment="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Login"
-                tools:targetApi="o" />
+        <Button
+            android:id="@+id/buttonInput"
+            android:layout_width="260dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/buttonshape_red"
+            android:shadowColor="@color/redButtonShadowColor"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:text="@string/enter"
+            android:textAllCaps="false"
+            android:textColor="@color/redButtonTextColor"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Password" />
 
-            <Button
-                android:id="@+id/buttonInput"
-                android:layout_width="260dp"
-                android:layout_height="40dp"
-                android:layout_below="@+id/Password"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:layout_marginTop="27dp"
-                android:background="@drawable/buttonshape_red"
-                android:shadowColor="@color/redButtonShadowColor"
-                android:shadowDx="0"
-                android:shadowDy="0"
-                android:shadowRadius="5"
-                android:text="@string/enter"
-                android:textAllCaps="false"
-                android:textColor="@color/redButtonTextColor"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Password" />
+        <Button
+            android:id="@+id/buttonReset"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="112dp"
+            android:background="@drawable/buttonshape_white"
+            android:gravity="center"
+            android:shadowColor="@color/whiteButtonShadowColor"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:text="@string/reset"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/whiteButtonTextColor"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/SysMess" />
 
-            <TextView
-                android:id="@+id/SysMess"
-                android:layout_width="218dp"
-                android:layout_height="138dp"
-                android:layout_below="@+id/buttonInput"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:layout_marginTop="7dp"
-                android:gravity="center"
-                android:scrollbars="vertical"
-                android:text="@string/system_message"
-                android:textAlignment="center"
-                android:textColor="@android:color/background_dark"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buttonInput"
-                app:layout_goneMarginLeft="10dp"
-                app:layout_goneMarginRight="10dp" />
+        <EditText
+            android:id="@+id/Login"
+            android:layout_width="250dp"
+            android:layout_height="42dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:autofillHints=""
+            android:background="@drawable/circle_form_angle_v2"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/login_text_input"
+            android:inputType="textPersonName"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+            tools:targetApi="o" />
 
-            <Button
-                android:id="@+id/buttonReset"
-                android:layout_width="250dp"
-                android:layout_height="40dp"
-                android:layout_below="@+id/SysMess"
-                android:layout_alignParentStart="false"
-                android:layout_alignParentEnd="false"
-                android:layout_alignParentBottom="false"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:layout_marginTop="26dp"
-                android:layout_marginBottom="25dp"
-                android:background="@drawable/buttonshape_white"
-                android:gravity="center"
-                android:shadowColor="@color/whiteButtonShadowColor"
-                android:shadowDx="0"
-                android:shadowDy="0"
-                android:shadowRadius="5"
-                android:text="@string/reset"
-                android:textAlignment="center"
-                android:textAllCaps="false"
-                android:textColor="@color/whiteButtonTextColor"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/SysMess" />
-        </RelativeLayout>
+        <EditText
+            android:id="@+id/Password"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:autofillHints=""
+            android:background="@drawable/circle_form_angle_v2"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/pass_text_input"
+            android:inputType="textPassword"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Login"
+            tools:targetApi="o" />
 
+        <Button
+            android:id="@+id/buttonfustlogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/fustLogin"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.115" />
 
-    </RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </layout>

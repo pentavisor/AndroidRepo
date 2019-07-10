@@ -78,7 +78,7 @@ public class CreateUserPresenter extends MvpPresenter<CreateUserView> {
         AsyncTask.execute(() -> {
             try {
 
-                String u = "https://randomuser.me/api/?inc=name,picture,location&nat=us";
+                String u = "https://randomuser.me/api/?inc=name,picture&nat=us";
                 URL randomUserEndPoint = new URL(u);
                 HttpsURLConnection myConnection = (HttpsURLConnection) randomUserEndPoint.openConnection();
 
@@ -88,7 +88,6 @@ public class CreateUserPresenter extends MvpPresenter<CreateUserView> {
                     userDataModel.firstName =randomUserAPIParser.getFirstNameInet();
                     userDataModel.imageName =randomUserAPIParser.getPhotoInet();
                     userDataModel.sex =randomUserAPIParser.getSex();
-                    userDataModel.googleMapLink = randomUserAPIParser.getMapCoordinates();
                     sendNewUserInDataBase(userDataModel, userProperties);
                 }
             } catch (MalformedURLException e) {

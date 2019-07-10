@@ -72,6 +72,7 @@ public class CreateUserActivity extends MvpAppCompatActivity implements CreateUs
         userDataModel = new UserDataModel(0, "", "", "", "", false, "0000", "1111", R.drawable.mustache, "", 0);
 
         sexChoice = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.sex_choice));
+//        spinner.setAdapter(sexChoice);
         createUserPresenter.calendarInit();
 
         sportSw.setOnCheckedChangeListener((c, b) -> userProperties.sport = b);
@@ -86,6 +87,27 @@ public class CreateUserActivity extends MvpAppCompatActivity implements CreateUs
             userDataModel.imageLink = R.drawable.gears;
             createUserPresenter.initDataQueryToRandomUser(userDataModel, userProperties);
         });
+
+//        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//
+//                switch (i) {
+//                    case (1):
+//                        userDataModel.sex = true;
+//                        break;
+//                    case (2):
+//                        userDataModel.sex = false;
+//                        break;
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//                return;
+//            }
+//        });
+
 
 
         birthdayText.setOnClickListener(v -> {

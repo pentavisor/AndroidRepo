@@ -30,8 +30,8 @@ public class LoginActivity extends MvpAppCompatActivity implements LoginView {
     Button buttonInput;
     @BindView(R.id.buttonReset)
     Button buttonReset;
-//    @BindView(R.id.buttonfustlogin)
-//    Button buttonFirstLogin;
+    @BindView(R.id.buttonfustlogin)
+    Button buttonFirstLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class LoginActivity extends MvpAppCompatActivity implements LoginView {
         sysMess.setMovementMethod(new ScrollingMovementMethod());
         buttonInput.setOnClickListener(x -> loginPresenter.btnSet());
         buttonReset.setOnClickListener(x -> loginPresenter.btnReset());
-     //   buttonFirstLogin.setOnClickListener(x -> goInUserListPage());
+        buttonFirstLogin.setOnClickListener(x -> goInUserListPage());
 
     }
 
